@@ -190,12 +190,12 @@ Research → Insights → Form hypotheses → More research needed?
                    No, ready for checkpoint
 ```
 
-**PL and Partner decide when to iterate:**
+**PL decides when to iterate (operational decision):**
 - Do we have enough baseline understanding?
 - Are the preliminary findings solid enough to present?
 - Do we need more research before forming the issue tree?
 
-Iterate within Phase 2 until satisfied, then proceed to checkpoint.
+Iterate within Phase 2 until PL is satisfied, then proceed to internal meeting and Partner review. **Partner reviews at the end of Phase 2** (strategic gate), not during internal iterations.
 
 ### Phase 2 Output: Preliminary Findings (1/4 of the Square)
 
@@ -412,12 +412,12 @@ Validate → Discover gaps → More research needed?
               No, ready for final checkpoint
 ```
 
-**PL and Partner decide when to iterate:**
+**PL decides when to iterate (operational decision):**
 - Are the hypotheses validated with sufficient evidence?
 - Do we have enough depth to make recommendations?
 - Are there gaps that need more research?
 
-Iterate within Phase 3 until satisfied, then proceed to Phase 4.
+Iterate within Phase 3 until PL is satisfied, then proceed to final meeting and Partner review. **Partner reviews at the end of Phase 3** (strategic gate), not during internal iterations.
 
 ### Validation Round
 
