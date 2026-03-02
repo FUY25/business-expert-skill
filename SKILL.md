@@ -263,28 +263,52 @@ Engagement Progress:
   - [ ] 2.3 PL decides what topics to cover (3-5 areas most relevant to engagement)
   - [ ] 2.4 Spawn Business Experts with mode="plan"
   - [ ] 2.5 Review and approve expert research plans
-  - [ ] 2.6 Experts execute research (internally iterative: research → insights → refine)
+  - [ ] 2.6 Experts execute preliminary research (internally iterative: research → insights → refine)
+  - [ ] 2.6.1 ⚠️ After EACH expert completes: Fact-Checker verifies data quality → process/fact-check-<workstream>-preliminary.yaml
   - [ ] 2.7 Build MECE issue tree → process/issue-tree.yaml (internal: hypotheses, user-facing: key questions)
-  - [ ] 2.8 Verify all agents wrote YAML files (ls process/*.yaml)
-  - [ ] 2.9 Run scripts/validate_process.py for data quality check (advisory)
-  - [ ] 2.10 READ references/partner-guide.md before Partner review
-  - [ ] 2.11 Partner formal review → process/partner-review-phase2.yaml
-  - [ ] 2.12 Consult Partner on preliminary findings (Agent Teams)
+  - [ ] 2.7.1 ⚠️ VERIFY: Run `ls process/issue-tree.yaml` - if missing, create it now before proceeding
+  - [ ] 2.8 Verify all experts wrote YAML files: `ls process/preliminary-*.yaml`
+  - [ ] 2.8.1 ⚠️ VERIFY: Expected files: issue-tree.yaml + one preliminary-<workstream>.yaml per expert
+  - [ ] 2.8.2 ⚠️ VERIFY: Fact-Checker created one fact-check-<workstream>-preliminary.yaml per expert
+  - [ ] 2.9 PL writes cross-workstream synthesis → process/pl-synthesis-phase2.yaml
+  - [ ] 2.9.1 ⚠️ VERIFY: Run `ls process/pl-synthesis-phase2.yaml` - if missing, create it now
+  - [ ] 2.10 ⚠️ MANDATORY MEETING: Internal meeting before user checkpoint (all experts + PL + Partner + Fact-Checker)
+  - [ ] 2.10.1 Partner facilitates discussion, Fact-Checker takes notes
+  - [ ] 2.10.2 Write meeting notes → process/meeting-phase2.yaml
+  - [ ] 2.10.3 ⚠️ VERIFY: Run `ls process/meeting-phase2.yaml` - if missing, meeting didn't happen
+  - [ ] 2.11 READ references/partner-guide.md before Partner review
+  - [ ] 2.12 Partner formal review → process/partner-review-phase2.yaml (strategic framing focus)
+  - [ ] 2.12.1 ⚠️ VERIFY: Run `ls process/partner-review-phase2.yaml` - if missing, Partner didn't complete review
   - [ ] 2.13 ★ PRELIMINARY FINDINGS CHECKPOINT (mandatory) — present findings + issue tree to user
 - [ ] Phase 3: Hypothesis Validation & Recommendations (internally iterative)
-  - [ ] 3.1 Based on user feedback, deploy targeted agents
-  - [ ] 3.2 Validate hypotheses (internally iterative: validate → gaps → research deeper)
-  - [ ] 3.3 Verify all agents wrote YAML files (ls process/*.yaml)
+  - [ ] 3.0 ⚠️ CONDITIONAL MEETING: If user gave major change request between Phase 2 and Phase 3
+        → Hold meeting at start of Phase 3 (all experts + PL + Partner + Fact-Checker)
+        → Partner facilitates, Fact-Checker takes notes → process/meeting-phase3-start.yaml
+  - [ ] 3.1 Based on user feedback, deploy targeted agents for deep validation
+  - [ ] 3.2 Experts execute deep validation (internally iterative: validate → gaps → research deeper)
+  - [ ] 3.2.1 ⚠️ After EACH expert completes: Fact-Checker verifies data quality → process/fact-check-<workstream>-deep.yaml
+  - [ ] 3.3 Verify all experts wrote YAML files: `ls process/deep-*.yaml`
+  - [ ] 3.3.1 ⚠️ VERIFY: Expected files: one deep-<workstream>.yaml per expert
+  - [ ] 3.3.2 ⚠️ VERIFY: Fact-Checker created one fact-check-<workstream>-deep.yaml per expert
   - [ ] 3.4 Cross-workstream contradiction check (MANDATORY)
-  - [ ] 3.5 ★ PIVOT CHECK — does this change the issue tree?
+  - [ ] 3.5 ⚠️ MANDATORY MEETING: Mid-Phase 3 sync (all experts + PL + Fact-Checker, Partner optional)
+  - [ ] 3.5.1 Partner facilitates if present, Fact-Checker takes notes
+  - [ ] 3.5.2 Write meeting notes → process/meeting-phase3-mid.yaml
+  - [ ] 3.5.3 ⚠️ VERIFY: Run `ls process/meeting-phase3-mid.yaml` - if missing, meeting didn't happen
+  - [ ] 3.6 ★ PIVOT CHECK — does this change the issue tree?
         → YES: update issue-tree.yaml, spawn new workstreams, iterate within Phase 3
         → NO: proceed
-  - [ ] 3.6 Run scripts/validate_process.py for data quality check (advisory)
-  - [ ] 3.7 Fact-check top 5-8 data points → process/fact-check-phase3.yaml
-  - [ ] 3.8 READ references/partner-guide.md before Partner review
-  - [ ] 3.9 Partner review → process/partner-review-validation.yaml
+  - [ ] 3.7 PL writes cross-workstream synthesis → process/pl-synthesis-phase3.yaml
+  - [ ] 3.7.1 ⚠️ VERIFY: Run `ls process/pl-synthesis-phase3.yaml` - if missing, create it now
+  - [ ] 3.8 ⚠️ MANDATORY MEETING: Final synthesis (all experts + PL + Partner + Fact-Checker)
+  - [ ] 3.8.1 Partner facilitates discussion, Fact-Checker takes notes
+  - [ ] 3.8.2 Write meeting notes → process/meeting-phase3-final.yaml
+  - [ ] 3.8.3 ⚠️ VERIFY: Run `ls process/meeting-phase3-final.yaml` - if missing, meeting didn't happen
+  - [ ] 3.9 READ references/partner-guide.md before Partner review
+  - [ ] 3.10 Partner review → process/partner-review-validation.yaml (evidence quality focus)
+  - [ ] 3.10.1 ⚠️ VERIFY: Run `ls process/partner-review-validation.yaml` - if missing, Partner didn't complete review
         → Partner can trigger restructure → loop to Phase 2
-  - [ ] 3.10 Working checkpoints (optional) — share findings when meaningful
+  - [ ] 3.11 Working checkpoints (optional) — share findings when meaningful
   - Loop-back count: 0
 - [ ] Phase 4: Final Checkpoint ⚠️ REQUIRED
   - [ ] 4.1 READ references/partner-guide.md before final review

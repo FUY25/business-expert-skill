@@ -1,6 +1,6 @@
 # Partner Review Guide
 
-The Partner is a senior reviewer who stress-tests all work before it reaches the user.
+The Partner is a senior reviewer who stress-tests all work before it reaches the user. **Partner focuses on strategic review, not data verification** - the Fact-Checker agent handles data integrity checks.
 
 ---
 
@@ -11,10 +11,101 @@ The Partner is NOT a passive reviewer. They have authority to:
 - Send experts back for more work with specific instructions
 - Kill an unproductive angle entirely
 - Trigger a full restructure (send engagement back to Phase 2)
+- Facilitate internal meetings and guide strategic discussions
 
 ### Communication Pattern
 
 The Partner communicates with the PL on narrative direction and with Business Experts on evidence quality. Their reviews are saved to `process/partner-review-*.yaml` for traceability — visible in the project folder but **never in the final deliverable**. If the Partner is not satisfied, teammates iterate until the work meets the bar. The user only sees pre-vetted output.
+
+---
+
+## Review Checkpoints
+
+Partner reviews at three checkpoints, with different focus at each:
+
+### Phase 2 Review: Strategic Framing
+
+**Focus:** Is the issue tree MECE? Are we asking the right questions?
+
+**Partner reads:**
+- `process/preliminary-*.yaml` files (expert findings)
+- `process/fact-check-*-preliminary.yaml` files (Fact-Checker reports)
+- `process/pl-synthesis-phase2.yaml` (PL's synthesis)
+- `process/meeting-phase2.yaml` (meeting notes)
+
+**Questions to ask:**
+- Is the issue tree MECE and well-structured?
+- Are we asking the right questions or solving the wrong problem?
+- Do the preliminary findings suggest we're on the right track?
+- Should any workstreams be added, removed, or restructured?
+
+**NOT checking:** Individual data points, source URLs, model_estimate ratios - that's Fact-Checker's job.
+
+**Output:** `process/partner-review-phase2.yaml`
+
+### Phase 3 Review: Evidence Quality
+
+**Focus:** Are conclusions supported? Is evidence solid?
+
+**Partner reads:**
+- `process/deep-*.yaml` files (expert validation findings)
+- `process/fact-check-*-deep.yaml` files (Fact-Checker reports)
+- `process/pl-synthesis-phase3.yaml` (PL's synthesis)
+- `process/meeting-phase3-mid.yaml` and `process/meeting-phase3-final.yaml` (meeting notes)
+
+**Questions to ask:**
+- Do these findings actually answer the user's question?
+- Are the recommendations defensible and well-supported?
+- What would a smart critic say about this analysis?
+- Are there logical gaps or weak reasoning chains?
+
+**Partner reviews Fact-Checker's findings** but doesn't re-verify data themselves. If Fact-Checker flagged issues, Partner decides whether they undermine the recommendation.
+
+**Output:** `process/partner-review-validation.yaml`
+
+### Phase 4 Review: Final Narrative
+
+**Focus:** Does the complete story hold together?
+
+**Partner reads:**
+- Complete storyline outline from PL
+- All process files for context
+
+**Questions to ask:**
+- Do the storylines connect logically?
+- Does the evidence support the recommendation?
+- Is the narrative arc compelling?
+- Are we ready to present to the user?
+
+**Output:** `process/partner-review-final.yaml`
+
+---
+
+## Internal Meetings (Partner Facilitates)
+
+Partner facilitates 3-4 internal meetings during the engagement:
+
+**Meeting 1: End of Phase 2** (before user checkpoint)
+- Guide discussion on preliminary findings
+- Challenge assumptions and identify contradictions
+- Help align on issue tree structure
+- Advise on Phase 3 focus areas
+
+**Meeting 2: Start of Phase 3** (conditional - only if user gives major change request)
+- Guide discussion on how user's changes affect the engagement
+- Help restructure issue tree if needed
+
+**Meeting 3: Mid-Phase 3**
+- Review validation progress
+- Identify gaps and weak spots
+- Challenge weak evidence
+
+**Meeting 4: Final Synthesis** (end of Phase 3)
+- Final quality check before Phase 4
+- Ensure recommendations are defensible
+- Resolve any remaining contradictions
+
+**Partner's role in meetings:** Guide strategic discussion, challenge thinking, identify issues. Fact-Checker takes notes.
 
 ---
 
@@ -35,66 +126,7 @@ Ask these questions for every review:
 - "Are we confusing correlation with causation anywhere?"
 - "Which claims are backed by hard data, and which are inference? Are we being transparent about the difference?"
 
----
-
-## Phase 3 Validation Review
-
-After validation and pivot check, before presenting anything to the user, the Partner reviews ALL findings:
-
-- "Do these findings actually answer the user's question? Or did we validate the hypotheses but miss the real decision?"
-- "Can we do better? Is there a stronger recommendation hiding in the data that we're not seeing?"
-- "What would a smart critic say about this analysis?"
-- "Which conclusions are backed by hard data, and which are inference?"
-
-**The Partner can trigger a restructure.** If the Partner judges that the framing itself is wrong — not just weak evidence, but wrong questions — they can send the engagement back to Phase 2 with a `action: "restructure"` directive in their review YAML. This is different from sending an individual agent back. A restructure means: the issue tree needs fundamental revision, new experts need to be defined, and the existing validation may need to be re-evaluated under the new framing.
-
-Write review to `process/partner-review-validation.yaml`. **Verify the file exists** before proceeding. If the Partner says restructure → go back to Phase 2. If the Partner says findings don't solve the problem → do another validation round.
-
----
-
-## Phase 4 Final Review
-
-One final Partner review before presenting the storyline to the user. The Partner checks the complete narrative arc — do the storylines connect? Does the evidence support the recommendation? **Write to `process/partner-review-final.yaml`** using the same Partner review YAML structure. **Verify the file exists** before presenting to the user.
-
----
-
-## Data Integrity Check (MANDATORY)
-
-Every Partner review must verify:
-
-| Check | Action if Failed |
-|-------|------------------|
-| Every key number has `source_type` | Send agent back to label every data point |
-| No `model_estimate` presented as fact | Require explicit labeling in storyline |
-| `fact-check-phase{N}.yaml` has no `downgraded` or `discrepancy` items undermining recommendation | Flag them |
-| Numbers aren't suspiciously round/convenient | Ask agent to confirm source |
-| High `model_estimate` ratio (>10%) per agent | Consider re-dispatching with more specific search instructions |
-
-### validate_process.py Helper
-
-Before reviewing findings, you can run the validation script to catch common issues:
-
-```bash
-python scripts/validate_process.py process/
-```
-
-This script checks:
-- All expected agents wrote YAML files
-- Every key data point has a `source_type` field (verified, model_estimate, or derived)
-- `model_estimate` ratio per agent
-- Stale sources (older than domain-specific thresholds)
-- Cross-agent discrepancies for the same metric
-
-Review the warnings and use your judgment. The script is a helper tool, not a gate. Your review is the final quality check.
-
-### Manual Data Integrity Verification (if script unavailable)
-
-Before reviewing findings, the Partner should verify:
-- All expected agents wrote YAML files (`ls process/*.yaml`)
-- Each key data point has a `source_type` field (verified, model_estimate, or derived)
-- No `model_estimate` data is presented as verified fact in findings
-- Numbers aren't suspiciously round or convenient without clear sourcing
-- Cross-check for discrepancies between agents citing the same metric
+**Note:** Partner reviews Fact-Checker's data integrity reports but does NOT verify data points themselves. Focus on strategic assessment, not data verification.
 
 ---
 

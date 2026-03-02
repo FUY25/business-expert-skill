@@ -176,9 +176,9 @@ The PL decides what topics to cover based on the engagement. Common areas includ
 ### Every Agent Must Write YAML
 
 Include in every agent prompt:
-> "Before you return, write your findings to `process/<workstream-name>.yaml` using the format in `references/templates/yaml-formats.md`."
+> "Before you return, write your findings to `process/preliminary-<workstream-name>.yaml` using the format in `references/templates/yaml-formats.md`."
 
-After agents return: `ls process/*.yaml` — re-dispatch any agent that didn't write its file.
+After agents return: `ls process/preliminary-*.yaml` — re-dispatch any agent that didn't write its file.
 
 ### Phase 2 is Internally Iterative
 
@@ -208,6 +208,46 @@ Example preliminary findings:
 - Competitive: "Top 3 players hold 45% share" (preliminary - high-level view)
 - Insight: "Gap in mid-tier eco segment" (preliminary - pattern observed)
 - Internal: "Your cost advantage might survive tariffs" (preliminary - rough calculation)
+
+### Fact-Checker Verifies Data Quality
+
+After each Business Expert completes their preliminary research, the Fact-Checker verifies data quality:
+
+1. Read the expert's `process/preliminary-<workstream>.yaml` file
+2. Check ALL key data points (not just samples):
+   - Has `source_type` (verified/model_estimate/derived)?
+   - If `verified`, has retrievable `source_url`?
+   - Spot-check URLs (20-30% in Phase 2)
+   - Cross-check for contradictions with other experts' findings
+3. Calculate `model_estimate` ratio - flag if >10%
+4. Write fact-check report to `process/fact-check-<workstream>-preliminary.yaml`
+
+**Check depth:** Light-to-medium in Phase 2 (structure verification, spot-check 20-30% of URLs, flag obvious issues).
+
+### PL Writes Cross-Workstream Synthesis
+
+After all experts complete preliminary research and fact-checking, the PL synthesizes findings across workstreams:
+
+1. Read all `process/preliminary-*.yaml` and `process/fact-check-*-preliminary.yaml` files
+2. Identify cross-workstream insights, contradictions, and emerging storylines
+3. Write synthesis to `process/pl-synthesis-phase2.yaml`
+
+This synthesis feeds into the internal meeting and Partner review.
+
+### Internal Meeting (MANDATORY)
+
+Before presenting preliminary findings to the user, hold an internal meeting with all experts, PL, Partner, and Fact-Checker:
+
+**Purpose:** Align on preliminary findings, resolve contradictions, validate issue tree structure
+
+**Partner facilitates discussion, Fact-Checker takes notes:**
+- Review preliminary findings across all workstreams
+- Discuss contradictions and data quality issues flagged by Fact-Checker
+- Challenge assumptions and identify gaps
+- Validate issue tree structure (MECE, right questions)
+- Decide Phase 3 focus areas
+
+**Output:** `process/meeting-phase2.yaml` (meeting notes captured by Fact-Checker)
 
 ### Build MECE Issue Tree (Internal Structure)
 
@@ -251,7 +291,17 @@ Core question: Should we launch B2C paint in EU/US?
 
 ### Partner Review (MANDATORY)
 
-Partner reviews preliminary findings and issue tree. Write to `process/partner-review-phase2.yaml`.
+Partner reviews preliminary findings, fact-check reports, PL synthesis, and meeting notes. Write to `process/partner-review-phase2.yaml`.
+
+**Focus:** Strategic framing - Is the issue tree MECE? Are we asking the right questions?
+
+**Partner reads:**
+- `process/preliminary-*.yaml` files (expert findings)
+- `process/fact-check-*-preliminary.yaml` files (Fact-Checker reports)
+- `process/pl-synthesis-phase2.yaml` (PL's synthesis)
+- `process/meeting-phase2.yaml` (meeting notes)
+
+**NOT checking:** Individual data points, source URLs, model_estimate ratios - that's Fact-Checker's job. Partner focuses on strategic assessment.
 
 **For detailed Partner review questions and quality criteria, see `references/methodology/partner-guide.md`.**
 
@@ -339,6 +389,19 @@ Phase 2 covered 1/4 of the square (moderate breadth, shallow depth). Phase 3 can
 - What's most critical to the decision
 - Where preliminary findings were weakest
 
+### Conditional Meeting at Start of Phase 3
+
+**If the user gave a major change request between Phase 2 and Phase 3**, hold a meeting at the start of Phase 3:
+
+**Purpose:** Address user's change request before Phase 3 validation
+
+**Partner facilitates (if present), Fact-Checker takes notes:**
+- Discuss how user's changes affect the engagement
+- Update issue tree if needed
+- Reallocate expert workstreams if necessary
+
+**Output:** `process/meeting-phase3-start.yaml` (only created if meeting happens)
+
 ### Phase 3 is Internally Iterative
 
 ```
@@ -359,10 +422,17 @@ Iterate within Phase 3 until satisfied, then proceed to Phase 4.
 ### Validation Round
 
 1. Deploy targeted agents based on user feedback and PL priorities
-2. Each writes to `process/validation-<hypothesis-name>.yaml`
+2. Each writes to `process/deep-<workstream-name>.yaml`
 3. Analyze: support or refute each hypothesis
-4. **Cross-workstream contradiction check (MANDATORY).** Before proceeding, compare findings across all experts. If Expert A's finding contradicts Expert B's assumption — e.g., cost expert says "15-25% advantage" but channel expert's model assumes "30% advantage" — this is not a footnote. The downstream conclusions are built on a false premise. Resolve it: spawn a follow-up agent, have the PL reconcile directly, or re-dispatch the affected expert with corrected assumptions. Update both workstream YAMLs with the resolution.
-5. Verify files exist: `ls process/*.yaml`
+4. **Fact-Checker verifies data quality** after each expert completes:
+   - Read the expert's `process/deep-<workstream>.yaml` file
+   - Check ALL key data points (more thorough than Phase 2)
+   - Spot-check URLs (50%+ in Phase 3)
+   - Cross-check numbers across experts for discrepancies
+   - Write fact-check report to `process/fact-check-<workstream>-deep.yaml`
+   - **Check depth:** Medium-to-heavy (more thorough since this goes to user)
+5. **Cross-workstream contradiction check (MANDATORY).** Before proceeding, compare findings across all experts. If Expert A's finding contradicts Expert B's assumption — e.g., cost expert says "15-25% advantage" but channel expert's model assumes "30% advantage" — this is not a footnote. The downstream conclusions are built on a false premise. Resolve it: spawn a follow-up agent, have the PL reconcile directly, or re-dispatch the affected expert with corrected assumptions. Update both workstream YAMLs with the resolution.
+6. Verify files exist: `ls process/deep-*.yaml` and `ls process/fact-check-*-deep.yaml`
 
 ### Pivot Check (MANDATORY after each round)
 
@@ -373,7 +443,7 @@ After agents return and cross-expert contradictions are resolved, ask these thre
    - Did we discover a new dimension the tree doesn't cover? → Add a new branch with new hypotheses
    - Did the relative importance of branches shift? → Re-prioritize
    - If YES to any → update `process/issue-tree.yaml` (increment version, log the change), spawn new experts for new branches, and run another validation round on the new hypotheses. Tell the user: "The [X] analysis revealed something that changes the picture — [explain]. I'm updating the issue tree and running additional research on [new branch]."
-   - If NO to all → proceed to Partner review
+   - If NO to all → proceed to mid-Phase 3 meeting
 
 2. **"Do any validated findings invalidate other experts' assumptions?"**
    - Check each expert's key assumptions against other experts' findings
@@ -384,6 +454,44 @@ After agents return and cross-expert contradictions are resolved, ask these thre
    - Sometimes validation reveals the user's real problem is different from what was scoped. E.g., "should we enter B2C?" might really be "should we diversify away from OEM dependency?"
    - If the core question has shifted → **loop back to Phase 1**. Tell the user: "Based on what I've found, I think the real question might be [X] rather than [Y]. Can we re-scope?"
    - This is rare but important. Don't silently pivot without the user's buy-in.
+
+### Mid-Phase 3 Meeting (MANDATORY)
+
+After pivot check, hold a mid-Phase 3 sync meeting:
+
+**Purpose:** Share validation progress, identify gaps, challenge weak evidence
+
+**Partner facilitates (if present), Fact-Checker takes notes:**
+- Review validation progress across workstreams
+- Identify gaps and weak spots
+- Challenge weak evidence flagged by Fact-Checker
+- Decide if more validation rounds are needed
+
+**Output:** `process/meeting-phase3-mid.yaml`
+
+### PL Writes Cross-Workstream Synthesis
+
+After mid-Phase 3 meeting, the PL synthesizes findings across workstreams:
+
+1. Read all `process/deep-*.yaml` and `process/fact-check-*-deep.yaml` files
+2. Identify cross-workstream insights, contradictions resolved, and validated hypotheses
+3. Write synthesis to `process/pl-synthesis-phase3.yaml`
+
+This synthesis feeds into the final Phase 3 meeting and Partner review.
+
+### Final Phase 3 Meeting (MANDATORY)
+
+Before Partner review, hold a final synthesis meeting:
+
+**Purpose:** Final quality check before Phase 4, ensure recommendations are defensible
+
+**Partner facilitates, Fact-Checker takes notes:**
+- Review final findings across all workstreams
+- Ensure recommendations are defensible
+- Resolve any remaining contradictions
+- Assess storyline coherence
+
+**Output:** `process/meeting-phase3-final.yaml`
 
 ### Verify Agent Outputs
 
@@ -400,23 +508,34 @@ This script checks:
 - No stale sources (older than domain-specific thresholds)
 - Cross-agent discrepancies for the same metric
 
-Review the warnings and decide whether to re-dispatch agents or proceed. The Partner review is the final quality gate.
+Review the warnings and decide whether to re-dispatch agents or proceed. The Fact-Checker and Partner reviews are the final quality gates.
 
 Manual verification if script unavailable:
 ```bash
-ls process/*.yaml
+ls process/deep-*.yaml
+ls process/fact-check-*-deep.yaml
 ```
 
 Check each YAML for:
 - Missing `source_type` on data points → send agent back to label every data point
 - `model_estimate` ratio >10% for any agent → re-dispatch that agent with more specific search instructions
-- Stale sources (older than domain threshold) → flag for Partner review
+- Stale sources (older than domain threshold) → flag for Fact-Checker and Partner review
 
-Before proceeding to Partner review, confirm all expected agents have written their files and data is labeled.
+Before proceeding to Partner review, confirm all expected agents have written their files and Fact-Checker has verified data quality.
 
 ### Partner Review (MANDATORY)
 
-**Partner review (MANDATORY).** After validation and pivot check, the Partner reviews ALL findings.
+**Partner review (MANDATORY).** After final Phase 3 meeting, the Partner reviews ALL findings.
+
+**Focus:** Evidence quality - Are conclusions supported? Is evidence solid?
+
+**Partner reads:**
+- `process/deep-*.yaml` files (expert validation findings)
+- `process/fact-check-*-deep.yaml` files (Fact-Checker reports)
+- `process/pl-synthesis-phase3.yaml` (PL's synthesis)
+- `process/meeting-phase3-mid.yaml` and `process/meeting-phase3-final.yaml` (meeting notes)
+
+**Partner reviews Fact-Checker's findings** but doesn't re-verify data themselves. If Fact-Checker flagged issues, Partner decides whether they undermine the recommendation.
 
 **For detailed Partner review questions and quality criteria, see `references/methodology/partner-guide.md`.**
 
@@ -439,13 +558,14 @@ Write review to `process/partner-review-validation.yaml`. **Verify the file exis
 
 ### Fact-Check Step
 
-Models tend to generate plausible-sounding numbers from training data without verifying them. This step catches that. After agents return their findings and after `validate_process.py` runs:
+Models tend to generate plausible-sounding numbers from training data without verifying them. This step catches that. The Fact-Checker agent handles this automatically after each expert completes research (see Validation Round above).
 
-1. **Identify the top 5-8 most impactful data points** — the numbers that drive the recommendation. Focus on: market sizes, growth rates, competitor financials, cost figures, and any number used in a calculation.
+**Fact-Checker workflow:**
+1. **Identify ALL key data points** in the expert's YAML file (not just samples)
 2. **For each `verified` data point:** Attempt to access the cited `source_url`. If the URL is reachable, check that the number actually appears in the source (or is reasonably close). If the URL is dead or the number doesn't match, downgrade to `model_estimate` and flag it.
-3. **For each `model_estimate` data point:** Do one more targeted search to try to find a real source. If found, upgrade to `verified` with the URL. If not, keep as `model_estimate` — but if this number is critical to the recommendation, flag it as a risk in the Partner review.
+3. **For each `model_estimate` data point:** Do one more targeted search to try to find a real source. If found, upgrade to `verified` with the URL. If not, keep as `model_estimate` — but if this number is critical to the recommendation, flag it as a risk.
 4. **Cross-check numbers across agents.** If two agents cite different values for the same metric (e.g., different market size figures), flag the discrepancy and determine which source is more authoritative.
-5. **Write results to `process/fact-check-phase{N}.yaml`** (format in `references/templates/yaml-formats.md`).
+5. **Write results to `process/fact-check-<workstream>-deep.yaml`** (format in `references/templates/yaml-formats.md`).
 
 The fact-check results feed into the Partner review. The Partner should pay special attention to any `downgraded` or `discrepancy` items and decide whether they weaken the storyline enough to require another research round.
 
@@ -456,6 +576,10 @@ The fact-check results feed into the Partner review. The Partner should pay spec
 Last collaborative moment before deliverable.
 
 **Partner review (MANDATORY).** One final Partner review before presenting the storyline to the user. The Partner checks the complete narrative arc — do the storylines connect? Does the evidence support the recommendation? **Write to `process/partner-review-final.yaml`** using the same Partner review YAML structure. **Verify the file exists** before presenting to the user.
+
+**Partner reads:**
+- Complete storyline outline from PL
+- All process files for context (preliminary, deep, fact-check, synthesis, meeting notes)
 
 **For detailed Partner review questions and quality criteria, see `references/methodology/partner-guide.md`.**
 

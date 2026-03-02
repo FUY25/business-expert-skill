@@ -6,10 +6,15 @@ All agents must write structured YAML files to `process/`. Use these exact forma
 
 ## Workstream Findings (Business Experts)
 
-File: `process/<workstream-name>.yaml`
+**Business Experts create TWO files per workstream - one for each phase:**
+
+### Preliminary Research (Phase 2)
+
+File: `process/preliminary-<workstream-name>.yaml`
 
 ```yaml
 workstream: "<name of this workstream>"
+phase: "preliminary"
 agent: "<agent identifier>"
 problem_scope: "<the question this agent is answering>"
 timestamp: "<ISO 8601>"
@@ -87,6 +92,320 @@ Each case study must have all 4 dimensions:
 3. What worked and what didn't
 4. The specific lesson for this client's situation
 
+### Deep Research (Phase 3)
+
+File: `process/deep-<workstream-name>.yaml`
+
+```yaml
+workstream: "<name of this workstream>"
+phase: "deep"
+agent: "<agent identifier>"
+problem_scope: "<the question this agent is answering>"
+timestamp: "<ISO 8601>"
+status: "complete"
+hypotheses_validated:
+  - hypothesis_id: "H1"
+    statement: "<hypothesis from Phase 2>"
+    status: supported|refuted|revised
+    evidence_strength: strong|moderate|weak
+key_findings:
+  - finding: "<one-sentence conclusion>"
+    confidence: high|medium|low
+    source: "<where this came from>"
+    implications: "<what this means for the client's specific decision>"
+    data_points:
+      - metric: "<what was measured>"
+        value: "<number or range>"
+        year: <year>
+        source_type: verified|model_estimate|derived
+        source_url: "<url if verified, empty if model_estimate>"
+data_gaps:
+  - "<what we couldn't find>"
+sources:
+  - name: "<source name>"
+    type: "<source type>"
+    url: "<url if available>"
+```
+
+**Key difference from preliminary:** Deep research includes `hypotheses_validated` section showing which hypotheses from Phase 2 were proven/refuted.
+
+---
+
+## Fact-Check Results (Fact-Checker Agent)
+
+**Fact-Checker creates TWO files per workstream - one for each phase:**
+
+### After Preliminary Research
+
+File: `process/fact-check-<workstream>-preliminary.yaml`
+
+```yaml
+fact_check:
+  workstream: "<workstream name>"
+  phase: "preliminary"
+  timestamp: "<ISO 8601>"
+  checked_data_points: <number>
+  check_depth: "light-to-medium"
+  results:
+    - metric: "EU decorative paint market size"
+      claimed_value: "€12B"
+      claimed_source: "Euromonitor 2025"
+      source_url: "https://..."
+      verification: verified|downgraded|upgraded|discrepancy
+      actual_value: "€11.8B"
+      notes: "Close enough — rounding difference"
+    - metric: "Specialty segment CAGR"
+      claimed_value: "6.2%"
+      claimed_source: "model knowledge"
+      source_url: ""
+      verification: "upgraded"
+      actual_value: "5.8%"
+      notes: "Found in Grand View Research 2025 report"
+  summary:
+    verified_count: 5
+    downgraded_count: 1
+    upgraded_count: 1
+    discrepancy_count: 1
+    model_estimate_ratio: 0.08
+    risk_flags:
+      - "Shipping cost estimate ($8.50/unit) is model_estimate and critical to margin calculation"
+  cross_check_findings:
+    - issue: "Market size definition inconsistency"
+      workstreams: ["market", "gtm"]
+      details: "Market expert uses €12B (DIY only), GTM expert uses €15B (includes professional)"
+      resolution_needed: true
+```
+
+### After Deep Research
+
+File: `process/fact-check-<workstream>-deep.yaml`
+
+Same format as preliminary, but with:
+- `check_depth: "medium-to-heavy"`
+- More thorough URL verification (50%+ spot-checked)
+- More cross-checking across workstreams
+
+---
+
+## Meeting Notes (Fact-Checker Agent)
+
+**Fact-Checker captures meeting notes from SendMessage transcript:**
+
+### Phase 2 Meeting
+
+File: `process/meeting-phase2.yaml`
+
+```yaml
+meeting:
+  phase: 2
+  timing: "end"
+  purpose: "Align on preliminary findings before user checkpoint"
+  attendees: ["expert-market", "expert-competitive", "expert-gtm", "pl", "partner", "fact-checker"]
+  timestamp: "<ISO 8601>"
+
+  key_discussions:
+    - topic: "Market size discrepancy"
+      summary: "Expert A says €12B (DIY only), Expert B says €15B (includes professional). Resolved: €12B DIY is target market."
+
+    - topic: "Cost advantage assumptions"
+      summary: "Expert C's channel model assumes 30% advantage, but Expert A validated only 25%. Expert C will rerun model."
+
+  decisions:
+    - "Issue tree approved as-is, no restructuring needed"
+    - "Phase 3 will focus 70% on cost/channel validation, 30% on market validation"
+
+  action_items:
+    - agent: "expert-competitive"
+      action: "Clarify market size scope in preliminary YAML (DIY vs total)"
+    - agent: "expert-gtm"
+      action: "Rerun channel model with 25% cost advantage assumption in Phase 3"
+
+  contradictions_resolved:
+    - issue: "Market size definition"
+      resolution: "Aligned on €12B DIY as target market, €15B total for context"
+
+  issue_tree_updates:
+    - change: "None - issue tree approved as-is"
+```
+
+### Phase 3 Start Meeting (Conditional)
+
+File: `process/meeting-phase3-start.yaml` (only created if user gives major change request)
+
+```yaml
+meeting:
+  phase: 3
+  timing: "start"
+  purpose: "Address user's change request before Phase 3 validation"
+  trigger: "User requested scope change between Phase 2 and Phase 3"
+  attendees: ["expert-market", "expert-competitive", "expert-gtm", "pl", "partner", "fact-checker"]
+  timestamp: "<ISO 8601>"
+
+  user_change_request:
+    summary: "<what the user asked for>"
+    impact: "major|minor"
+
+  key_discussions:
+    - topic: "How does this change affect our issue tree?"
+      summary: "<discussion summary>"
+
+  decisions:
+    - "<decisions made>"
+
+  action_items:
+    - agent: "<agent>"
+      action: "<what needs to be done>"
+
+  issue_tree_updates:
+    - change: "<what changed in issue tree>"
+```
+
+### Phase 3 Mid Meeting
+
+File: `process/meeting-phase3-mid.yaml`
+
+```yaml
+meeting:
+  phase: 3
+  timing: "mid"
+  purpose: "Share validation progress, identify gaps"
+  attendees: ["expert-market", "expert-competitive", "expert-gtm", "pl", "partner", "fact-checker"]
+  timestamp: "<ISO 8601>"
+
+  key_discussions:
+    - topic: "<discussion topic>"
+      summary: "<summary>"
+
+  decisions:
+    - "<decisions made>"
+
+  action_items:
+    - agent: "<agent>"
+      action: "<action>"
+
+  validation_status:
+    hypotheses_proven: ["H1", "H3"]
+    hypotheses_refuted: ["H6"]
+    hypotheses_pending: ["H2", "H4"]
+
+  gaps_identified:
+    - "<what gaps remain>"
+
+  next_steps:
+    - "<what happens next>"
+```
+
+### Phase 3 Final Meeting
+
+File: `process/meeting-phase3-final.yaml`
+
+```yaml
+meeting:
+  phase: 3
+  timing: "final"
+  purpose: "Final synthesis before Phase 4 checkpoint"
+  attendees: ["expert-market", "expert-competitive", "expert-gtm", "pl", "partner", "fact-checker"]
+  timestamp: "<ISO 8601>"
+
+  key_discussions:
+    - topic: "<discussion topic>"
+      summary: "<summary>"
+
+  decisions:
+    - "<decisions made>"
+
+  final_findings:
+    - "<key finding>"
+
+  recommendations_aligned:
+    - "<recommendation>"
+
+  contradictions_resolved:
+    - issue: "<issue>"
+      resolution: "<resolution>"
+
+  storyline_coherence:
+    assessment: "coherent|needs-work"
+    notes: "<partner's assessment>"
+```
+
+---
+
+## PL Synthesis (Project Lead)
+
+File: `process/pl-synthesis-phase2.yaml`
+
+```yaml
+synthesis:
+  phase: 2
+  timestamp: "<ISO 8601>"
+
+  key_insights:
+    - insight: "<cross-workstream insight>"
+      supporting_workstreams: ["market", "competitive"]
+      confidence: high|medium|low
+
+  contradictions_resolved:
+    - issue: "<what contradicted>"
+      workstreams: ["market", "gtm"]
+      resolution: "<how resolved>"
+
+  storyline_emerging:
+    - storyline: "<narrative thread>"
+      evidence: ["<finding 1>", "<finding 2>"]
+      strength: strong|moderate|weak
+
+  gaps_identified:
+    - gap: "<what's missing>"
+      impact: high|medium|low
+      plan: "<how to address in Phase 3>"
+
+  hypotheses_formed:
+    - hypothesis: "H1"
+      statement: "<hypothesis statement>"
+      confidence: "<preliminary confidence level>"
+      validation_plan: "<what to test in Phase 3>"
+```
+
+File: `process/pl-synthesis-phase3.yaml`
+
+```yaml
+synthesis:
+  phase: 3
+  timestamp: "<ISO 8601>"
+
+  key_insights:
+    - insight: "<cross-workstream insight>"
+      supporting_workstreams: ["market", "competitive", "gtm"]
+      confidence: high|medium|low
+
+  contradictions_resolved:
+    - issue: "<what contradicted>"
+      workstreams: ["market", "gtm"]
+      resolution: "<how resolved>"
+
+  storyline_emerging:
+    - storyline: "<narrative thread>"
+      evidence: ["<finding 1>", "<finding 2>"]
+      strength: strong|moderate|weak
+
+  gaps_identified:
+    - gap: "<what's missing>"
+      impact: high|medium|low
+      plan: "<how to address - or note if unresolvable>"
+
+  hypotheses_validated:
+    - hypothesis: "H1"
+      statement: "<hypothesis statement>"
+      status: supported|refuted|revised
+      evidence_strength: strong|moderate|weak
+
+  recommendations_emerging:
+    - recommendation: "<what to recommend>"
+      confidence: high|medium|low
+      dependencies: ["<what needs to be true>"]
+```
+
 ---
 
 ## Issue Tree
@@ -132,6 +451,8 @@ changelog:
 
 ## Partner Review
 
+**Partner focuses on strategic review, not data verification. Partner reviews expert findings + fact-check reports together.**
+
 File: `process/partner-review-<checkpoint>.yaml`
 
 ```yaml
@@ -139,6 +460,15 @@ reviewer: "Partner"
 checkpoint: "phase2" | "validation" | "final"
 timestamp: "<ISO 8601>"
 status: "approved" | "needs-revision"
+
+# Phase 2 Review: Strategic Framing
+# Focus: Is the issue tree MECE? Are we asking the right questions?
+# Partner reads: preliminary-*.yaml files + fact-check-*-preliminary.yaml files
+
+# Phase 3 Review: Evidence Quality
+# Focus: Are conclusions supported? Is evidence solid?
+# Partner reads: deep-*.yaml files + fact-check-*-deep.yaml files
+
 assessment:
   storyline_coherence: "<are the hypotheses well-framed?>"
   evidence_gaps:
@@ -147,11 +477,15 @@ assessment:
     - "<what doesn't hold up>"
   skeptic_challenges:
     - "<what would a critic say>"
+
 directives:
   - agent: "<which agent>"
     action: "<specific instruction>"
+
 overall_verdict: "Ready for user checkpoint" | "Needs more work on [X]"
 ```
+
+**Note:** Partner does NOT verify data points themselves - that's Fact-Checker's job. Partner reviews the fact-check reports and focuses on strategic assessment.
 
 ### Partner Restructure Directive
 
@@ -166,41 +500,6 @@ directives:
 ```
 
 This sends the engagement back to Phase 2 for fundamental revision.
-
----
-
-## Fact-Check Results
-
-File: `process/fact-check-phase{N}.yaml`
-
-```yaml
-fact_check:
-  phase: 2|3
-  timestamp: "<ISO 8601>"
-  checked_data_points: 8
-  results:
-    - metric: "EU decorative paint market size"
-      claimed_value: "€12B"
-      claimed_source: "Euromonitor 2025"
-      source_url: "https://..."
-      verification: verified|downgraded|upgraded|discrepancy
-      actual_value: "€11.8B"
-      notes: "Close enough — rounding difference"
-    - metric: "Specialty segment CAGR"
-      claimed_value: "6.2%"
-      claimed_source: "model knowledge"
-      source_url: ""
-      verification: "upgraded"
-      actual_value: "5.8%"
-      notes: "Found in Grand View Research 2025 report"
-  summary:
-    verified_count: 5
-    downgraded_count: 1
-    upgraded_count: 1
-    discrepancy_count: 1
-    risk_flags:
-      - "Shipping cost estimate ($8.50/unit) is model_estimate and critical to margin calculation"
-```
 
 ---
 
