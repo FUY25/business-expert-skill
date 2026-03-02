@@ -280,7 +280,7 @@ Engagement Progress:
   - [ ] 2.12 Partner formal review → process/partner-review-phase2.yaml (strategic framing focus)
   - [ ] 2.12.1 ⚠️ VERIFY: Run `ls process/partner-review-phase2.yaml` - if missing, Partner didn't complete review
   - [ ] 2.13 ★ PRELIMINARY FINDINGS CHECKPOINT (mandatory) — present findings + issue tree to user
-- [ ] Phase 3: Hypothesis Validation & Recommendations (internally iterative)
+- [ ] Phase 3: Deep Problem Solving (internally iterative)
   - [ ] 3.0 ⚠️ CONDITIONAL MEETING: If user gave major change request between Phase 2 and Phase 3
         → Hold meeting at start of Phase 3 (all experts + PL + Partner + Fact-Checker)
         → Partner facilitates, Fact-Checker takes notes → process/meeting-phase3-start.yaml
@@ -693,7 +693,7 @@ All work saved to `process/` for traceability and resumability:
 ## Quick Reference
 
 ```
-Phase 0 ⛔ → Phase 1 ⚠️ SCOPE → Phase 2 (research + hypotheses) ↔ Phase 3 (validate, iterative)
+Phase 0 ⛔ → Phase 1 ⚠️ SCOPE → Phase 2 (research + hypotheses) ↔ Phase 3 (deep problem solving, iterative)
 → Phase 4 ⚠️ SIGN-OFF → Phase 5 (deliver + pre-delivery checklist) → Phase 6 (next steps + save state)
 ```
 

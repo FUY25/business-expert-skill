@@ -152,6 +152,12 @@ User confirms problem statement, scope, and output format. Do not proceed withou
 
 This is the initial phase of the project. You establish baseline understanding through broad exploration, develop preliminary insights, and form hypotheses based on findings. This phase is **internally iterative** — research, analyze, refine, repeat until preliminary findings are solid.
 
+**Mindset: Insightful overview and trends**
+- Understand the landscape, identify patterns, see what's there
+- Include how/why at an overview level (not just "what")
+- Generate insights from patterns (what do trends mean? preliminary implications?)
+- NOT exhaustive analysis or deep problem solving yet - that's Phase 3
+
 ### What Phase 2 Covers (PL Decides)
 
 The PL decides what topics to cover based on the engagement. Common areas include:
@@ -195,7 +201,11 @@ Research → Insights → Form hypotheses → More research needed?
 - Are the preliminary findings solid enough to present?
 - Do we need more research before forming the issue tree?
 
-Iterate within Phase 2 until PL is satisfied, then proceed to internal meeting and Partner review. **Partner reviews at the end of Phase 2** (strategic gate), not during internal iterations.
+Iterate within Phase 2 until PL is satisfied, then proceed to internal meeting and Partner review.
+
+**Partner's role in Phase 2:**
+- **During iterations:** Not involved in day-to-day iteration decisions (PL manages execution)
+- **At end of phase:** Facilitates internal meeting (collaborative strategic discussion), then conducts formal review (strategic gate-keeping)
 
 ### Phase 2 Output: Preliminary Findings (1/4 of the Square)
 
@@ -203,11 +213,13 @@ Think of the research space as a 2D square: X-axis = breadth, Y-axis = depth.
 
 **Phase 2 covers 1/4 of the square:** Moderate breadth, shallow depth. You establish baseline understanding across selected areas, but these findings are **preliminary** — room to go deeper in Phase 3.
 
-Example preliminary findings:
-- Market: "EU decorative paint is €12B, growing 3.2% CAGR" (preliminary - based on 2-3 sources)
-- Competitive: "Top 3 players hold 45% share" (preliminary - high-level view)
-- Insight: "Gap in mid-tier eco segment" (preliminary - pattern observed)
-- Internal: "Your cost advantage might survive tariffs" (preliminary - rough calculation)
+**Example preliminary findings (insightful overview and trends):**
+- Market: "EU decorative paint is €12B, growing 3.2% CAGR, driven by eco-conscious consumers" (includes why at overview level)
+- Competitive: "Top 3 players hold 45% share, focused on mass market" (pattern + insight)
+- Insight: "Gap in mid-tier eco segment because incumbents are slow to reformulate" (preliminary implication)
+- Internal: "Your cost advantage might survive tariffs based on initial calculations" (preliminary assessment)
+
+These are insightful, not just data points. But they're preliminary - Phase 3 will validate and go deeper.
 
 ### Fact-Checker Verifies Data Quality
 
@@ -372,9 +384,15 @@ Wait for user feedback before proceeding to Phase 3.
 
 ---
 
-## Phase 3: Hypothesis Validation & Recommendations
+## Phase 3: Deep Problem Solving
 
 Based on user feedback from Phase 2, you now go deeper on specific areas. This phase is **internally iterative** — validate, discover gaps, research deeper, refine, repeat until PL and Partner are satisfied with the depth and recommendations.
+
+**Mindset: Deep insightful problem solving**
+- Go as deep as needed to actually solve the problem
+- Validate hypotheses, understand mechanisms deeply, analyze trade-offs
+- Develop actionable recommendations with confidence
+- This is where you figure out the answer, not just understand the landscape
 
 ### Phase 3 Can Go Anywhere in the Square
 
@@ -417,7 +435,11 @@ Validate → Discover gaps → More research needed?
 - Do we have enough depth to make recommendations?
 - Are there gaps that need more research?
 
-Iterate within Phase 3 until PL is satisfied, then proceed to final meeting and Partner review. **Partner reviews at the end of Phase 3** (strategic gate), not during internal iterations.
+Iterate within Phase 3 until PL is satisfied, then proceed to final meeting and Partner review.
+
+**Partner's role in Phase 3:**
+- **During iterations:** Facilitates mid-phase meeting (collaborative strategic discussion) to guide direction, but doesn't decide when to iterate (PL manages execution)
+- **At end of phase:** Facilitates final meeting, then conducts formal review (strategic gate-keeping)
 
 ### Validation Round
 

@@ -15,6 +15,13 @@ The Partner is NOT a passive reviewer. They have authority to:
 - Trigger a full restructure (send engagement back to Phase 2)
 - Facilitate internal meetings and guide strategic discussions
 
+**Key distinction:**
+- **Meetings** = Collaborative strategic discussions (Partner facilitates, guides thinking, challenges assumptions)
+- **Reviews** = Formal gate-keeping (Partner evaluates if work is ready for user checkpoint)
+- **Iteration decisions** = Operational execution (PL decides when to iterate within a phase)
+
+Partner provides strategic guidance through meetings but doesn't micromanage day-to-day iteration decisions.
+
 ### Communication Pattern
 
 The Partner communicates with the PL on narrative direction and with Business Experts on evidence quality. Their reviews are saved to `process/partner-review-*.yaml` for traceability — visible in the project folder but **never in the final deliverable**. If the Partner is not satisfied, teammates iterate until the work meets the bar. The user only sees pre-vetted output.
@@ -30,6 +37,12 @@ The Partner asks the same core questions throughout - just remember which phase 
 - **Are we solving the right problem?** Is the issue tree MECE and well-structured?
 - **Do the storylines connect logically?** Does each finding lead naturally to the next?
 - **Are there contradictions?** Do findings from different experts conflict?
+
+### Insightfulness Check
+- **Are outputs insightful, not just data?** Do findings explain what patterns mean and why they matter?
+- **Phase 2:** Are preliminary findings showing overview-level insights (trends, drivers, implications)?
+- **Phase 3:** Are deep findings solving the problem with validated recommendations?
+- **Red flag:** Data dumps without interpretation, findings without "so what"
 
 ### Reasoning Quality
 - **Would an industry expert accept this reasoning?** What would they push back on?
