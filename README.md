@@ -1,15 +1,15 @@
 # Business Expert Skill
 
-A strategy consulting skill for Claude Code that brings MBB-caliber thinking to your business problems. Think of it as having a BCG consultant on your team — someone who asks the right questions, structures complex problems, and delivers insights that actually drive decisions.
+A structured approach to business strategy that helps you analyze markets, evaluate opportunities, and make informed decisions. It asks the right questions, does the research, and delivers actionable recommendations backed by evidence.
 
 ## What This Skill Does
 
-This isn't a chatbot that summarizes Wikipedia articles. It's a structured approach to business strategy that mirrors how top-tier consultants actually work:
+This isn't a chatbot that summarizes Wikipedia articles. It's a systematic way to work through business problems:
 
-- **Starts with the right question** — Most business problems are poorly framed. We spend time upfront making sure we're solving the real problem, not just the stated one.
-- **Builds hypotheses, then tests them** — Rather than boiling the ocean with research, we form a point of view early and seek evidence to prove or disprove it. Faster, sharper, more decisive.
+- **Starts with the right question** — Most business problems are poorly framed. It spends time upfront making sure you're solving the real problem, not just the stated one.
+- **Builds hypotheses, then tests them** — Rather than boiling the ocean with research, it forms a point of view early and seeks evidence to prove or disprove it. Faster, sharper, more decisive.
 - **Delivers complete packages** — You get both the presentation (slides for stakeholders) and the full analysis (detailed document for those who want depth). No more choosing between brevity and rigor.
-- **Maintains quality gates** — A Partner reviews all work before you see it. If the analysis is thin, the logic is weak, or the evidence doesn't support the conclusion, it gets sent back. You only see work that meets the bar.
+- **Maintains quity gates** — Work gets reviewed before you see it. If the analysis is thin, the logic is weak, or the evidence doesn't support the conclusion, it gets sent back. You only see work that meets the bar.
 
 ## When You'd Use This
 
@@ -40,46 +40,46 @@ This isn't a chatbot that summarizes Wikipedia articles. It's a structured appro
 
 ## How It Works
 
-### The Consulting Mindset
+The skill uses structured thinking principles adapted from strategy consulting to break down complex problems systematically:
 
-**Hypothesis-driven, not data-driven.** We don't start by gathering all available data. We start by forming a point of view about what's likely true, then seek evidence to validate or refute it. This is how consultants move fast without sacrificing rigor.
+**Hypothesis-driven approach.** Instead of gathering all available data first, it forms a point of view about what's likely true, then seeks evidence to validate or refute it. This moves faster without sacrificing rigor.
 
-**MECE decomposition.** Every problem gets broken down into components that are Mutually Exclusive (no overlap) and Collectively Exhaustive (nothing missing). This prevents analysis paralysis and ensures we're not leaving blind spots.
+**MECE decomposition.** Every problem gets broken down into components that are Mutually Exclusive (no overlap) and Collectively Exhaustive (nothing missing). This prevents analysis paralysis and ensures nothing gets missed.
 
-**Pyramid principle.** Lead with the answer, then support it with storylines, then back each storyline with evidence. Your CEO doesn't have time to read 50 pages to find out what you recommend — tell them upfront, then let them drill down if they want.
+**Pyramid principle.** Lead with the answer, then support it with storylines, then back each storyline with evidence. You get the recommendation upfront, then can drill down into the reasoning.
 
-**"So what?" test.** Every data point must answer "so what does this mean for the decision?" If it doesn't drive the recommendation, it's noise. Cut it.
+**"So what?" test.** Every data point must answer "so what does this mean for the decision?" If it doesn't drive the recommendation, it's noise.
 
 ### The 6-Phase Workflow
 
 **Phase 1: Scope & Clarification**
-We restate your problem in our own words and ask clarifying questions. What decision is this informing? Who's the audience? What constraints matter? This prevents wasted work downstream.
+Restates your problem and asks clarifying questions. What decision is this informing? Who's the audience? What constraints matter? This prevents wasted work downstream.
 
 **Phase 2: Landscape Research & Preliminary Findings**
-Initial exploration to establish baseline understanding. We research the market, competitive landscape, trends, and develop preliminary insights. This is internally iterative — we refine as we learn. At the end, you get a checkpoint: "Here's what we've learned so far. Does this framing make sense?"
+Initial exploration to establish baseline understanding. Researches the market, competitive landscape, trends, and develops preliminary insights. This is internally iterative — refines as it learns. At the end, you get a checkpoint: "Here's what we've learned so far. Does this framing make sense?"
 
 **Phase 3: Hypothesis Validation & Recommendations**
-Based on your feedback, we go deeper on specific areas. Validate hypotheses with targeted research, develop recommendations, iterate until the analysis is solid. Another checkpoint before we build the deliverable.
+Based on your feedback, goes deeper on specific areas. Validates hypotheses with targeted research, develops recommendations, iterates until the analysis is solid. Another checkpoint before building the deliverable.
 
 **Phase 4: Final Checkpoint**
-You see the complete storyline with evidence map before we build anything. This is your last chance to redirect. It's far cheaper to restructure an outline than to redo a 20-slide deck.
+You see the complete storyline with evidence map before anything gets built. This is your last chance to redirect. It's far cheaper to restructure an outline than to redo a 20-slide deck.
 
 **Phase 5: Deliverable Creation**
-We build both the slides (for presenting) and the full document (for reading). Contextual file names like `Market_Entry_Strategy_EU_Paint_v1.md`, not generic `report.md`. Multiple revision rounds with quality checks.
+Builds both the slides (for presenting) and the full document (for reading). Contextual file names like `Market_Entry_Strategy_EU_Paint_v1.md`, not generic `report.md`. Multiple revision rounds with quality checks.
 
 **Phase 6: Next Steps & Resumability**
-Specific follow-up actions, not vague "do more research." If a next step involves publicly available data, we try to find it or give you the exact lookup path. If it requires human action (interviews, internal data), we generate ready-to-use guides.
+Specific follow-up actions, not vague "do more research." If a next step involves publicly available data, it tries to find it or gives you the exact lookup path. If it requires human action (interviews, internal data), it generates ready-to-use guides.
 
 ### The Team Structure
 
-**You work with a team, not a single agent:**
+**The skill coordinates multiple specialized agents:**
 
 - **Project Lead (PL)** — Manages the engagement, synthesizes findings, owns the narrative arc. This is the main Claude session.
 - **Partner** — Quality gate. Reviews all work before you see it. Can send work back if it doesn't meet the bar.
 - **Business Experts** — Each owns a problem-scoped question (not a data domain). They research, analyze, and deliver findings.
 - **Deliverable Advisor** — Builds the final output with format-specific expertise (slides, documents, etc.).
 
-This isn't just parallel processing — it's how consulting teams actually work. The Partner ensures quality, the Experts go deep on specific questions, the PL synthesizes into a coherent story.
+This team structure ensures quality (Partner review), depth (Experts go deep on specific questions), and coherence (PL synthesizes into a clear story).
 
 ## Key Concepts
 
@@ -118,9 +118,9 @@ These aren't bureaucracy — they prevent wasted work. It's far cheaper to redir
 
 ### Problem Delegation, Not Task Delegation
 
-Business Experts receive problems, not tasks. We don't say "Go research the EU paint market and give me a report." We say "Can our cost advantage survive tariffs and shipping to remain competitive?" The Expert owns the how, the PL owns the what.
+Business Experts receive problems, not tasks. Instead of "Go research the EU paint market and give me a report," they get "Can our cost advantage survive tariffs and shipping to remain competitive?" The Expert owns the how, the PL owns the what.
 
-This is how consulting teams work. You hire smart people, give them hard problems, and let them figure out the approach. The PL reviews their plan before they execute.
+This approach gets better results. You give smart agents hard problems and let them figure out the approach. The PL reviews their plan before they execute.
 
 ### Always Both Formats
 
@@ -247,19 +247,19 @@ Collaborative, team-editable. Good for living documents that evolve over time.
 
 ## What Makes This Different
 
-**It's not a research assistant.** Research assistants gather information. This skill solves problems. There's a difference between "here's what I found about the EU paint market" and "you should enter via Amazon DTC with a phased UK-first approach because..."
+**It's not a research assistant.** Research assistants gather information. This solves problems. There's a difference between "here's what I found about the EU paint market" and "you should enter via Amazon DTC with a phased UK-first approach because..."
 
-**It's not a report generator.** Report generators summarize data. This skill builds arguments. Every section connects to the recommendation. If it doesn't drive the decision, it's cut.
+**It's not a report generator.** Report generators summarize data. This builds arguments. Every section connects to the recommendation. If it doesn't drive the decision, it's cut.
 
 **It's not a single-shot tool.** You get checkpoints throughout. Scope checkpoint, preliminary findings checkpoint, final checkpoint. This prevents wasted work and ensures alignment.
 
 **It's not just slides or just documents.** You get both. Slides for presenting, documents for depth. No more choosing between brevity and rigor.
 
-**It's not a solo agent.** You work with a team (PL, Partner, Experts, Deliverable Advisor). The Partner ensures quality. The Experts go deep. The PL synthesizes. This is how consulting teams actually work.
+**It's not a solo agent.** Multiple specialized agents work together (PL, Partner, Experts, Deliverable Advisor). The Partner ensures quality. The Experts go deep. The PL synthesizes.
 
 ## Contributing
 
-This skill is actively developed based on real consulting practice. Contributions welcome — especially from those with MBB or Big 4 strategy experience.
+This skill is actively developed based on real business strategy practice. Contributions welcome — especially from those with strategy consulting or business analysis experience.
 
 ## License
 
@@ -267,4 +267,4 @@ MIT License
 
 ## Credits
 
-Developed based on BCG consulting methodology and real-world strategy engagement patterns. Built for practitioners who need more than summaries — they need decisions.
+Built using structured thinking principles from strategy consulting. Designed for practitioners who need more than summaries — they need decisions.
