@@ -14,7 +14,14 @@ Verify EVERY item before presenting deliverable to user.
 ## Evidence & Sources
 
 - [ ] Every claim has traceable source in references section
+- [ ] Every key data point has a **retrievable URL** (not just source name)
+  - ✅ "Euromonitor 2025 (https://www.euromonitor.com/paint-market-eu-2025)"
+  - ❌ "Euromonitor 2025" (not retrievable)
 - [ ] Every data slide has source footnotes at bottom
+- [ ] For slides: "Sources & References" slide at end with full URLs for all major claims
+- [ ] For documents: Inline citations with URLs + "References" section at end with full bibliography
+- [ ] For paywalled sources: Include URL + note "(subscription required)" so user knows where to access
+- [ ] For model estimates: Explicitly labeled as "Model estimate (not verified)" in source line
 - [ ] No orphan evidence — every chart/trend connects to storyline or recommendation
 - [ ] Citations grouped per slide/section, not scattered inline
 

@@ -553,7 +553,7 @@ The PL reviews and either approves or suggests adjustments (e.g., "Combine marke
 
 After 3 versions, diminishing returns kick in. Present what you have. Only exceed 3 versions if the user explicitly requests further refinements.
 
-The business-expert skill owns the **content structure** (what goes where, narrative arc, which evidence supports which claim). The output skill/format owns the **visual execution** (layout, fonts, styling, chart rendering). The Lead's review bridges both — ensuring the visual output faithfully represents the analytical work.
+The business-expert skill owns the **content structure** (what goes where, narrative arc, which evidence supports which claim). The nested skill file owns the **visual execution** (layout, fonts, styling, chart rendering). The Lead's review bridges both — ensuring the visual output faithfully represents the analytical work.
 
 **Output structure (Pyramid Principle):**
 1. **Executive Summary** — 5-15 key conclusions and insights as bullet points. Lead with the answer.
@@ -577,7 +577,7 @@ The business-expert skill owns the **content structure** (what goes where, narra
 
 **Citations:** Group sources into a references section per slide or per storyline. Don't scatter inline. Every claim traceable, narrative flows clean.
 
-**Sub-skill loading rule:** Do NOT read any sub-skill files until Phase 5 (Deliverable Creation). During Phases 0-4, only reference the output formats table to confirm the chosen format is available. When Phase 5 begins, the Deliverable Advisor reads ONLY the single skill file for the chosen format — never load multiple.
+**Nested skill loading rule:** Do NOT read any nested skill files until Phase 5 (Deliverable Creation). During Phases 0-4, only reference the output formats table to confirm the chosen format is available. When Phase 5 begins, the Deliverable Advisor reads ONLY the single nested skill file for the chosen format using the Read tool (NOT the Skill tool) — never load multiple. The Skill tool cannot find nested skills at `skills/*/SKILL.md` paths.
 
 ### Pre-Delivery Checklist ⚠️ REQUIRED
 

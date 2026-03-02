@@ -241,6 +241,96 @@ Only if decision carries meaningful downside. Not every deck needs this.
 
 ---
 
+## Writing Style for Slides
+
+Slides require brevity, visual impact, and clarity. Follow BCG patterns: action-oriented headlines, specific data, visual elements on every slide, and concise text.
+
+### Slide Headlines: Complete Thoughts
+
+Headlines should state a conclusion or insight, not just a topic. The headline alone should convey the key message.
+
+**Do this:**
+- "Cost advantage survives tariffs and shipping, positioning us competitively"
+- "Specialty eco segment growing 2x market rate creates entry window"
+- "Amazon DTC launch feasible under $500K with 14-month breakeven"
+
+**Don't do this:**
+- "Cost Analysis"
+- "Market Growth"
+- "Channel Strategy"
+
+### Bullet Points: Specific and Sourced
+
+Every bullet should contain specific data with sources in parentheses. Keep bullets concise — no more than 2 lines per bullet.
+
+**Do this:**
+- "EU decorative paint: €12B, 3.2% CAGR ('23-'30) (Euromonitor 2025)"
+- "Eco segment: 6.8% CAGR, reaching €2.1B by 2030 — 2x overall market (Euromonitor 2025)"
+- "Consumer survey: 68% willing to pay 15-20% premium for sustainable paint (N=3,277, Jan 2025)"
+
+**Don't do this:**
+- "Market is growing — Euromonitor 2025" (vague, dash format)
+- "Eco segment has potential based on industry reports" (no specific data, no source)
+- "Consumers want sustainable options according to various surveys we reviewed" (too long, vague)
+
+### Text Limits: Maximum 4 Lines
+
+No paragraph or text block should exceed 4 lines. If content is longer, split into multiple bullets or create a second slide.
+
+**Do this (3 lines):**
+> The EU decorative paint market is €12B, growing at 3.2% CAGR from 2023 to 2030. The specialty eco-friendly segment is growing at 6.8% CAGR — more than double the overall market rate — creating a window for new entrants.
+
+**Don't do this (6 lines):**
+> The EU decorative paint market is €12B and growing at 3.2% CAGR from 2023 to 2030, driven primarily by the specialty eco-friendly segment which is growing at 6.8% CAGR — more than double the overall market rate. This creates a window for new entrants who can credibly position in the sustainable segment, as incumbents' reformulation cycles typically take 2-3 years, giving early movers time to establish brand presence before competitive response.
+
+### Visual Elements: Every Slide Needs One
+
+Following BCG patterns, every content slide must have a visual element — chart, table, icon, image, or diagram. Text-only slides are not acceptable.
+
+**Visual options:**
+- **Charts**: Bar charts for comparisons, line charts for trends, waterfall charts for financial breakdowns
+- **Tables**: Multi-dimensional comparisons (3-5 competitors × 3-5 dimensions)
+- **Icons**: In colored circles next to section headers or key points
+- **Images**: Product photos, market examples, case study visuals
+- **Diagrams**: Process flows, decision trees, positioning maps
+- **Large stat callouts**: 60-72pt numbers with small labels
+
+**BCG pattern reference:**
+Read `references/methodology/bcg-patterns.md` for specific examples of:
+- Positioning maps with named competitors
+- Waterfall charts for P&L bridges
+- "From... To..." transformation slides
+- Lever-based transformation frameworks
+- Color-coded growth indicators (green >2.5%, yellow 0-2.5%, red <0%)
+
+### Implications: Explicit, Not Implied
+
+After presenting data, explicitly state what it means for the client. Don't assume the reader will connect the dots.
+
+**Do this:**
+> **Data:** Our landed cost is $24.50 vs. competitor average of $32.80
+>
+> **Implication:** This $8.30 (25%) advantage allows us to price at $40-50 — above mass market ($20-30) but below premium ($60+) — capturing margin while remaining accessible to price-conscious eco-buyers.
+
+**Don't do this:**
+> **Data:** Our landed cost is $24.50 vs. competitor average of $32.80
+>
+> [No implication — reader has to figure out what this means]
+
+### Source Footnotes: Specific and Retrievable
+
+Every evidence slide must have source attribution at the bottom. Use specific source names with URLs where possible.
+
+**Do this:**
+- "Source: Euromonitor 2025, Capital IQ, Consumer survey (Jan 2025, N=3,277)"
+- "Source: Home Depot IR (https://ir.homedepot.com/behr-partnership)"
+
+**Don't do this:**
+- "Source: Industry reports"
+- "Source: Market research"
+
+---
+
 ## Slide Count Targets
 
 **By user's `--length` flag:**
@@ -451,6 +541,47 @@ Source: Company filings, Euromonitor 2025
 ```
 
 **After every benchmark, add "Implications to [client]" — not just "Competitor X has 47% margin."**
+
+---
+
+## Sources & References Slide (Required)
+
+Add as the final slide before appendix. This slide provides full URLs for all major claims, enabling verification and building credibility.
+
+**Structure:**
+
+```
+Sources & References
+
+Market Data:
+• Euromonitor: EU Decorative Paint Market 2025
+  https://www.euromonitor.com/paint-market-eu-2025
+• Statista: Paint & Wallpaper Supplies Market Size EU 2025-2029
+  https://www.statista.com/forecasts/paint-wallpaper-eu (Subscription required)
+
+Competitive Intelligence:
+• Home Depot IR: Behr Partnership History
+  https://ir.homedepot.com/behr-exclusive-partnership
+• Sherwin-Williams: Valspar Acquisition 2017
+  https://investors.sherwin-williams.com/valspar-acquisition
+
+Case Studies:
+• Clare Paint Series A: TechCrunch 2020
+  https://techcrunch.com/2020/03/clare-paint-series-a
+• Uniqlo EU Entry: Company Reports 2010
+  https://www.uniqlo.com/eu/en/company/reports/2010
+
+Consumer Research:
+• Consumer Survey: January 2025 (N=3,277)
+  Methodology available upon request
+```
+
+**Requirements:**
+- Every major data point cited in the presentation must appear here with full URL
+- For paywalled sources: Include URL + note "(Subscription required)"
+- For proprietary research: Note "Methodology available upon request"
+- For model estimates: Label as "Model estimate (not verified from external source)"
+- Group by category (Market Data, Competitive Intelligence, Case Studies, etc.)
 
 ---
 

@@ -180,11 +180,14 @@ Participates **throughout** (not just at the end).
 - Starts planning the deliverable structure early
 
 **During deliverable phase (Phase 5):**
-- Builds the final output using the appropriate output skill (frontend-slides, pptx, docx, Notion MCP)
+- Reads the appropriate nested skill file directly using the Read tool (NOT the Skill tool)
+- Builds the final output following the nested skill's instructions
 - Focuses on data visualization, narrative flow, and formatting
 - References `process/*.yaml` files directly for evidence
 
-**Must read the relevant output skill file at spawn time** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
+**Must read the relevant skill file at spawn time using the Read tool** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
+
+**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `skills/*/SKILL.md` paths. Always use Read tool to load nested skill files.
 
 ---
 
@@ -290,7 +293,7 @@ Engagement Progress:
   - [ ] 4.4 ★ USER SIGN-OFF — must approve before deliverable
 - [ ] Phase 5: Deliverable Creation (iterative review loop)
   - [ ] 5.1 READ references/bcg-patterns.md for structural patterns
-  - [ ] 5.2 Deliverable Advisor reads output skill file + bcg-patterns.md
+  - [ ] 5.2 Deliverable Advisor reads nested skill file (using Read tool) + bcg-patterns.md
   - [ ] 5.3 Deliverable Advisor proposes structure → PL approves
   - [ ] 5.4 Build BOTH formats: slides (if requested) + .md document (always)
   - [ ] 5.5 Use contextual file names (e.g., Market_Entry_Strategy_EU_Paint_v1.md)
@@ -409,7 +412,7 @@ Recommendation: Go via Amazon DTC, phased launch
   1. Slides (pptx or html) — for presenting
   2. Markdown document (.md) — for depth and reading (ALWAYS produced alongside slides)
 - **File naming:** Use contextual, professional names based on engagement topic (e.g., `Market_Entry_Strategy_EU_Paint_v1.md` and `Market_Entry_Strategy_EU_Paint_v1.pptx`)
-- Deliverable Advisor reads `references/methodology/bcg-patterns.md` and the output skill file
+- Deliverable Advisor reads `references/methodology/bcg-patterns.md` and the nested skill file (using Read tool, NOT Skill tool)
 - Structure proposal first → PL approves before building
 - Max 3 revision rounds, then present what you have
 - **Run `references/workflow/pre-delivery-checklist.md` before presenting**
@@ -635,15 +638,17 @@ All work saved to `process/` for traceability and resumability:
 
 ## Output Formats
 
-**Deliverable Advisor: Read the appropriate template file first, then the nested skill if needed.**
+**Deliverable Advisor: Read the appropriate template file first using the Read tool, then read the nested skill file if needed (also using Read tool, NOT Skill tool).**
 
-| Format | Template Guide | Nested Skill (if needed) |
-|--------|----------------|--------------------------|
+| Format | Template Guide | Nested Skill (read with Read tool) |
+|--------|----------------|-------------------------------------|
 | Markdown (.md) | `references/templates/output-documents.md` | None (built-in) |
 | Word doc (.docx) | `references/templates/output-documents.md` | `skills/docx/SKILL.md` |
 | Notion | `references/templates/output-documents.md` | Notion MCP |
 | HTML slides | `references/templates/output-slides.md` | `skills/frontend-slides/SKILL.md` |
 | PowerPoint (.pptx) | `references/templates/output-slides.md` | `skills/pptx/SKILL.md` |
+
+**CRITICAL: Never use the Skill tool for nested skills.** The Skill tool cannot find skills at `skills/*/SKILL.md` paths. Always use the Read tool to load nested skill files.
 
 **Do NOT read output files until Phase 5.** During Phases 0-4, only confirm the chosen format is available.
 

@@ -157,6 +157,165 @@ The process YAML files collectively will often exceed 20K words of research — 
 
 ---
 
+## Writing Style Standards
+
+### Structured and Communicational: Mix Prose with Bullets
+
+Documents should combine explanatory prose with structured bullet points, numbered lists, headers, tables, and visual elements. This makes content easier to scan and digest while maintaining analytical depth.
+
+**Use prose for:**
+- Opening paragraphs that frame the section
+- Explanations of why findings matter
+- Transitions between topics
+- Synthesis and implications
+
+**Use bullets for:**
+- Lists of findings or evidence points
+- Key data points with sources
+- Action items or recommendations
+- Comparisons or options
+
+**Use numbered lists for:**
+- Sequential steps or phases
+- Prioritized recommendations
+- Ranked options or alternatives
+
+**Use tables for:**
+- Multi-dimensional comparisons (competitors, segments, scenarios)
+- Financial breakdowns
+- Benchmarking data
+
+**Use headers (H1, H2, H3) for:**
+- H1: Document title
+- H2: Major sections (Market Viability, Cost Analysis, Recommendations)
+- H3: Subsections within major sections
+
+**Example of good structure:**
+
+> ## Market Viability
+>
+> The EU decorative paint market presents a compelling opportunity for [Client], driven by structural growth in the specialty eco-friendly segment and favorable competitive dynamics.
+>
+> ### Market Size and Growth
+>
+> **Key findings:**
+> - EU decorative paint market: €12B, growing at 3.2% CAGR (2023-2030) (Euromonitor 2025)
+> - Specialty eco-friendly segment: 6.8% CAGR — more than double the overall market rate
+> - Consumer willingness to pay: 68% willing to pay 15-20% premium for sustainable paint (Consumer survey, N=3,277, Jan 2025)
+>
+> This growth differential indicates a structural shift in consumer preferences toward sustainable products, not just a temporary trend. The 6.8% CAGR has persisted for 3+ years across multiple geographies, suggesting durability.
+>
+> ### Competitive Window
+>
+> Incumbents face significant barriers to rapid response:
+>
+> 1. **Reformulation cycles**: 2-3 years to develop and launch new eco-friendly lines
+> 2. **Brand repositioning**: Established brands risk cannibalizing existing mass-market products
+> 3. **Distribution conflicts**: Retail partners resist SKU proliferation
+>
+> This creates a 2-3 year window for new entrants to establish brand presence before competitive response.
+>
+> **Implications for [Client]:**
+> Positioning in the eco-friendly segment is not just differentiation — it's riding a growth wave that will compound your advantage over time. Focus product development and marketing on sustainability credentials rather than competing on price in the mass market.
+
+### Visual Elements for Documents
+
+Use visual elements to break up text and make data more digestible:
+
+**Tables for comparisons:**
+
+| Competitor | Market Share | Pricing | Distribution | Recent Moves |
+|------------|--------------|---------|--------------|--------------|
+| Competitor A | 18% (€2.2B) | Premium ($50-60) | Retail 70%, DTC 30% | Launched eco line 2024 |
+| Competitor B | 12% (€1.4B) | Mass ($20-30) | Retail 95%, B2B 5% | Acquired distributor 2023 |
+| Competitor C | 8% (€960M) | Mid-tier ($35-45) | DTC 60%, Retail 40% | Expanded to US 2024 |
+
+**ASCII charts for financial breakdowns:**
+
+```
+Revenue per unit:     $45.00  ████████████████████████████████████
+- COGS:              -$12.00  ██████████
+- Shipping:           -$8.50  ███████
+- Platform fees:      -$6.75  █████
+                             ─────────────────────────────────────
+= Net margin:         $17.75  ███████████████  (39.4%)
+```
+
+**Mermaid diagrams for flows and trees:**
+
+```mermaid
+graph TD
+    A[Should we enter EU/US B2C?] --> B[Market viability]
+    A --> C[Cost advantage survivability]
+    A --> D[Channel feasibility]
+```
+
+**Callout boxes for key implications:**
+
+> **Key Takeaway:** The 2-3 year competitive window, combined with 6.8% segment growth, creates a rare opportunity for early movers to establish brand presence before incumbents respond.
+
+### Avoid Telegraphic Bullets
+
+While bullets are useful for structure, avoid telegraphic style that reads like notes:
+
+**Don't do this (telegraphic):**
+> • EU market: €12B, 3.2% CAGR
+> • Eco segment: 6.8% CAGR
+> • Incumbents slow (2-3 years)
+
+**Do this (structured but explanatory):**
+> **Key findings:**
+> - EU decorative paint market: €12B, growing at 3.2% CAGR (2023-2030) (Euromonitor 2025)
+> - Specialty eco-friendly segment: 6.8% CAGR — more than double the overall market rate
+> - Incumbent response time: 2-3 years due to reformulation cycles, creating entry window
+
+### Explain the Why and How, Not Just the What
+
+Every finding should answer three questions:
+1. **What** is the finding? (the data point)
+2. **Why** does it matter? (the implication)
+3. **How** does it connect to the recommendation? (the action)
+
+**Example:**
+> **What:** The specialty eco-friendly segment is growing at 6.8% CAGR, more than double the overall market rate of 3.2%.
+>
+> **Why:** This indicates a structural shift in consumer preferences toward sustainable products, not just a temporary trend. The growth differential has persis years across multiple geographies.
+>
+> **How:** For [Client], this means positioning in the eco-friendly segment is not just differentiation — it's riding a growth wave that will compound your advantage over time. Focus product development and marketing on sustainability credentials rather than competing on price in the mass market.
+
+### Use Concrete Examples and Narratives
+
+Abstract statements are forgettable. Concrete examples with specific details stick in the reader's mind.
+
+**Abstract:**
+> "DTC paint brands can succeed with proper brand investment."
+
+**Concrete:**
+> "Clare Paint launched DTC-only in 2018 with a $7.5M Series A, focusing on Instagram-first marketing and a simplified SKU count (12 colors vs. 200+ for traditional brands). By 2020, they had reached $15M revenue and became a top-5 DTC paint brand in the US. Their success came from strong brand identity and social proof, but they struggled with high CAC ($180 per customer) and couldn't crack the contractor channel, which remains 60% of the market."
+
+### Transitions Between Sections
+
+Every section should flow into the next. The last sentence of Section A should set up Section B.
+
+**Example:**
+> [End of Market Viability section]
+> "While the market opportunity is clear, the critical question is whether our cost advantage can survive the journey from Vietnam to EU/US shelves — which we examine next."
+>
+> [Start of Cost Advantage section]
+> "Our 38% manufacturing cost advantage vs. local producers is substantial, but tariffs, shipping, and compliance costs will erode it..."
+
+### Paragraph Structure
+
+Each paragraph should have:
+- **Opening sentence**: States the main point
+- **Supporting sentences**: Provide evidence, examples, or reasoning (2-4 sentences)
+- **Closing sentence**: Connects to the next idea or reinforces the implication
+
+**Example:**
+> The specialty eco-friendly segment represents the most attractive entry point for [Client]. This segment is growing at 6.8% CAGR — more than double the overall market rate — and consumer willingness to pay a 15-20% premium is validated by survey data (N=3,277). Incumbents are slow to respond due to 2-3 year reformulation cycles, creating a window for new entrants. This growth trajectory, combined with regulatory tailwinds from tightening EU VOC limits in 2026, makes the eco segment a strategic priority rather than a niche play.
+
+---
+
 ## Case Study Standards
 
 When presenting case studies, include all 4 dimensions for the 1-2 most relevant examples:
@@ -247,6 +406,13 @@ graph TD
 ```
 
 **Citations:** Use footnotes or a References section at the end. Don't scatter inline citations — they break narrative flow.
+
+**Source URL Requirements:**
+- Every citation must include a retrievable URL, not just the source name
+- ✅ "Euromonitor 2025 (https://www.euromonitor.com/paint-market-eu-2025)"
+- ❌ "Euromonitor 2025" (not retrievable)
+- For paywalled sources: Include URL + note "(subscription required)"
+- For model estimates: Label as "Model estimate (not verified)" in citation
 
 ### Word (.docx)
 

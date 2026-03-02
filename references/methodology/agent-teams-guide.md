@@ -340,11 +340,14 @@ Participates **throughout** (not just at the end).
 - Starts planning the deliverable structure early
 
 **During deliverable phase (Phase 5):**
-- Builds the final output using the appropriate output skill (frontend-slides, pptx, docx, Notion MCP)
+- Reads the appropriate nested skill file directly using the Read tool (NOT the Skill tool)
+- Builds the final output following the nested skill's instructions
 - Focuses on data visualization, narrative flow, and formatting
 - References `process/*.yaml` files directly for evidence
 
-**Must read the relevant output skill file at spawn time** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
+**Must read the relevant nested skill file at spawn time using the Read tool** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
+
+**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `skills/*/SKILL.md` paths. Always use Read tool to load nested skill files.
 
 ---
 
@@ -500,8 +503,8 @@ You are the Deliverable Advisor. You participate throughout the engagement — n
 the end.
 
 **Engagement context:** [brief description]
-**Deliverable format:** [slides / report / dashboard — specify which output skill to use]
-**Output skill file:** Read [skills/frontend-slides/SKILL.md or relevant skill file] first
+**Deliverable format:** [slides / report / dashboard — specify which nested skill to read]
+**Nested skill file:** Read [skills/frontend-slides/SKILL.md or relevant skill file] using the Read tool (NOT Skill tool)
 to understand format-specific capabilities and constraints.
 
 **During research phases (Phase 2-3), your job:**
@@ -522,7 +525,7 @@ to understand format-specific capabilities and constraints.
    - This catches structural issues early — cheaper to fix an outline than a 20-slide deck
 3. Structure the narrative — executive summary, key findings, supporting analysis,
    recommendations, risks, next steps.
-4. Build the deliverable using [specified output skill].
+4. Build the deliverable by reading and following the nested skill file's instructions (using Read tool).
 5. Incorporate all suggested charts from the expert YAML files.
 6. Ensure the storyline flows logically and the evidence supports each claim.
 
