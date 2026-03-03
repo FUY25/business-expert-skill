@@ -61,9 +61,10 @@ temp/
 # process/
 # *-workspace/
 
-# Evaluation results (optional - uncomment if you don't want to track)
-# evals/results/
-# evals/benchmarks/
+# Evaluation results
+evals/
+optimizationsummary.md
+optimization_summary.md
 
 # Node modules (if any JavaScript tooling is added)
 node_modules/
