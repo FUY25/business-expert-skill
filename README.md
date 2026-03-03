@@ -75,11 +75,18 @@ Specific follow-up actions, not vague "do more research." If a next step involve
 **The skill coordinates multiple specialized agents:**
 
 - **Project Lead (PL)** — Manages the engagement, synthesizes findings, owns the narrative arc. This is the main Claude session.
-- **Partner** — Quality gate. Reviews all work before you see it. Can send work back if it doesn't meet the bar.
+- **Partner** — Quality gate. Reviews all work before you see it. Can send work back if it doesn't meet the bar. Spawned in Phase 0 to review the issue tree before research begins.
 - **Business Experts** — Each owns a problem-scoped question (not a data domain). They research, analyze, and deliver findings.
 - **Deliverable Advisor** — Builds the final output with format-specific expertise (slides, documents, etc.).
 
 This team structure ensures quality (Partner review), depth (Experts go deep on specific questions), and coherence (PL synthesizes into a clear story).
+
+**Fallback modes:** The skill adapts to your environment:
+- **Full team mode** — Uses Agent Teams for parallel coordination (recommended)
+- **Hub-and-spoke mode** — Uses subagents with PL coordination (if Agent Teams unavailable)
+- **Single-agent mode** — PL handles everything sequentially (if no subagents available)
+
+All modes maintain the same quality standards and workflow structure.
 
 ## Key Concepts
 
