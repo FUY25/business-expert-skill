@@ -232,7 +232,7 @@ business-expert/
 │       └── output-slides.md    # Slide structure and standards
 ├── scripts/
 │   └── validate_process.py     # Data quality validation
-├── skills/                     # Nested output skills
+├── deliverable-tools/          # Nested output tools
 │   ├── frontend-slides/        # HTML slides generation
 │   ├── pptx/                   # PowerPoint generation
 │   └── docx/                   # Word document generation

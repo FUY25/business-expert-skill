@@ -398,7 +398,7 @@ graph TD
 
 ### Word (.docx)
 
-**Nested skill:** `skills/docx/SKILL.md` — Read this file first to understand capabilities.
+**Nested skill:** `deliverable-tools/docx/docx-tool.md` — Read this file first to understand capabilities.
 
 **Key capabilities:**
 - Professional formatting (headers, footers, page numbers)

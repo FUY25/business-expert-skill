@@ -353,7 +353,7 @@ The process YAML files collectively will often exceed 20K words of research — 
 
 ### HTML Slides (.html)
 
-**Nested skill:** `skills/frontend-slides/SKILL.md` — **Read this file first** to understand capabilities.
+**Nested skill:** `deliverable-tools/frontend-slides/slide-tool.md` — **Read this file first** to understand capabilities.
 
 **Key capabilities:**
 - Chart.js for interactive charts (bar, line, pie, scatter, radar)
@@ -405,7 +405,7 @@ Every slide MUST fit exactly within the viewport. No scrolling within slides, ev
 
 ### PowerPoint (.pptx)
 
-**Nested skill:** `skills/pptx/SKILL.md` — **Read this file first** to understand capabilities.
+**Nested skill:** `deliverable-tools/pptx/pptx-tool.md` — **Read this file first** to understand capabilities.
 
 **Key capabilities:**
 - pptxgenjs library for generation

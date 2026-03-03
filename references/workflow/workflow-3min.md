@@ -25,6 +25,8 @@ This workflow is optimized for focused, time-sensitive analysis with 1-2 key que
 
 **This phase is not optional.** Before restating the problem, before asking questions, before doing anything analytical — run this check first.
 
+**READ:** None (this is the first phase)
+
 ### First Message Template
 
 Start with environment status:
@@ -109,16 +111,37 @@ Agent(
 )
 ```
 
+**UPDATE:** After Phase 0 completes, create `process/engagement-state.yaml` with initial state:
+```yaml
+current_phase: "Phase 1"
+last_updated: "<ISO 8601>"
+checkpoints_completed: []
+team_spawned: ["partner"]
+```
 
 ---
 
 ## Phase 1: Scope & Clarification ⚠️ REQUIRED
 
+**READ:** None (Phase 1 is scoping)
+
 See `phases-overview.md` for complete Phase 1 instructions (same across all tiers).
+
+**UPDATE:** After Phase 1 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 2"
+last_updated: "<ISO 8601>"
+scope_confirmed: true
+```
 
 ---
 
 ## Phase 2: Landscape Research & Preliminary Findings
+
+**READ:**
+- `process/engagement-state.yaml` (check current phase and team status)
+- `references/methodology/partner-guide.md` (for Partner review criteria)
+- `references/templates/yaml-formats.md` (for expert output format)
 
 This is the initial phase of the project. You establish baseline understanding through broad exploration, develop preliminary insights, form hypotheses, and conduct preliminary validation.
 
@@ -243,6 +266,8 @@ After all Business Experts complete their preliminary research, the PL does inli
 
 **No separate fact-check YAML file** - PL handles this inline.
 
+**Communication Discipline:** Do NOT show findings to the user until the formal checkpoint below. Work internally with the team first.
+
 ### ⚠️ PRELIMINARY FINDINGS CHECKPOINT (Mandatory)
 
 **Present preliminary findings to the user — as its own message.** This is a mandatory checkpoint between Phase 2 and Phase 3.
@@ -262,9 +287,22 @@ After all Business Experts complete their preliminary research, the PL does inli
 
 Wait for user feedback before proceeding to Phase 3.
 
+**UPDATE:** After checkpoint, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 3"
+last_updated: "<ISO 8601>"
+checkpoints_completed: ["preliminary_findings"]
+user_feedback: "<summary of user feedback>"
+```
+
 ---
 
 ## Phase 3: Deep Problem Solving
+
+**READ:**
+- `process/engagement-state.yaml` (check user feedback from Phase 2)
+- All `process/preliminary-*.yaml` files (build on Phase 2 findings)
+- `references/methodology/partner-guide.md` (for Partner review criteria)
 
 Based on user feedback from Phase 2, you now go deeper on specific areas.
 
@@ -328,9 +366,21 @@ Partner prompt should include:
 
 If Partner flags issues, address them before proceeding to Phase 4.
 
+**UPDATE:** After Phase 3 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 4"
+last_updated: "<ISO 8601>"
+deep_research_complete: true
+partner_review_complete: true
+```
+
 ---
 
 ## Phase 4: Final Checkpoint ⚠️ REQUIRED
+
+**READ:**
+- `process/engagement-state.yaml` (check Phase 3 completion status)
+- All `process/deep-*.yaml` files (for deliverable structure planning)
 
 Present deliverable structure and direction to user.
 
@@ -364,9 +414,23 @@ Ready to proceed with building this?
 
 User must approve before deliverable generation.
 
+**UPDATE:** After user sign-off, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 5"
+last_updated: "<ISO 8601>"
+checkpoints_completed: ["preliminary_findings", "final_checkpoint"]
+deliverable_structure_approved: true
+```
+
 ---
 
 ## Phase 5: Deliverable Creation
+
+**READ:**
+- `process/engagement-state.yaml` (confirm user approval)
+- `references/methodology/bcg-patterns.md` (MUST read before building deliverable)
+- All `process/deep-*.yaml` files (source material for deliverable)
+- `references/workflow/pre-delivery-checklist.md` (before presenting)
 
 The PL builds the final output as a consulting-style narrative.
 
@@ -402,9 +466,21 @@ The PL builds the final output as a consulting-style narrative.
 
 See `references/workflow/pre-delivery-checklist.md` — verify every item before presenting.
 
+**UPDATE:** After deliverable is complete, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 6"
+last_updated: "<ISO 8601>"
+deliverable_complete: true
+deliverable_files: ["<list of files created>"]
+```
+
 ---
 
 ## Phase 6: Next Steps & Resumability
+
+**READ:**
+- `process/engagement-state.yaml` (check deliverable completion)
+- All process files (for next steps recommendations)
 
 ### Next Steps Categories
 
@@ -425,3 +501,11 @@ Write `process/engagement-state.yaml` for resumability.
 Frame the deliverable as complete on its own, but with a clear pull:
 
 > "Here's the best analysis I can build with what's available. To take this further, these are the areas where better data would sharpen the conclusions — [specific items]. If you come back with any of these, I can show you how the picture changes."
+
+**UPDATE:** After Phase 6 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Complete"
+last_updated: "<ISO 8601>"
+engagement_complete: true
+next_steps_documented: true
+```

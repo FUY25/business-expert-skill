@@ -181,7 +181,7 @@ Agent(
     subagent_type="general-purpose",
     team_name="<project-slug>-strategy",   # ← REQUIRED
     name="expert-a",                         # ← REQUIRED
-    model="opus",
+    model="<PL-selected model>",             # ← Use model selected by PL in Phase 0
     mode="plan"                              # ← REQUIRES PLAN APPROVAL
 )
 
@@ -190,7 +190,7 @@ Agent(
     subagent_type="general-purpose",
     team_name="<project-slug>-strategy",   # ← REQUIRED
     name="expert-b",                         # ← REQUIRED
-    model="opus",
+    model="<PL-selected model>",             # ← Use model selected by PL in Phase 0
     mode="plan"                              # ← REQUIRES PLAN APPROVAL
 )
 
@@ -221,6 +221,8 @@ SendMessage(
 ```
 
 ### Plan Approval Criteria
+
+**Expert Plan Format:** Plans should be 100-200 words maximum. Concise, focused plans force clarity of thinking. If an expert needs 500 words to explain their approach, the scope is too broad or the thinking is too vague.
 
 Check each expert plan for:
 1. **Hypothesis-driven:** Clear hypothesis to test, not just "research X"
@@ -326,6 +328,45 @@ These gates give the PL control without needing to prescribe every step.
 
 ---
 
+## File Writing Discipline
+
+**Large file warning:** YAML files >500 lines or HTML slides with 20+ slides should use chunked writing or .md fallback.
+
+**Never retry failed large writes.** If a large YAML write fails:
+1. Switch to .md format immediately (don't retry YAML multiple times)
+2. Or use chunked writing: Write initial structure, then append sections
+3. For HTML slides: Use the chunked writing pattern built into the nested skill
+
+**Why this matters:** Retrying the same failed large write wastes time and tokens. The first failure tells you the approach won't work — adapt immediately rather than hoping the same operation will succeed on retry.
+
+---
+
+## Meeting Requirements and Communication Discipline
+
+**Communication discipline:** Teammates communicate ONLY at formal checkpoints, not continuously during research. This prevents constant interruptions and allows focused work.
+
+**Meeting structure by engagement length:**
+
+**`--length 3min` (Quick Analysis):**
+- No formal meetings
+- Partner reviews work asynchronously (reads YAML files)
+- Communication happens at user checkpoints only
+
+**`--length 5min` (Standard):**
+- 1 meeting: Phase 3 final (Partner + Deliverable Advisor + Experts)
+- Purpose: Strategic review before final deliverable
+- Partner reviews Phase 2 work asynchronously
+
+**`--length 10min` and `10min+` (Comprehensive):**
+- 2 meetings: Phase 2 end + Phase 3 final
+- Phase 2 meeting: Align on preliminary findings, resolve contradictions
+- Phase 3 meeting: Final synthesis, recommendations alignment
+- Fact-Checker documents both meetings
+
+**DO NOT show findings outside checkpoints.** Experts work independently between checkpoints. The PL synthesizes and presents at designated checkpoints only.
+
+---
+
 ## Team Roles
 
 ### Business Experts (Problem-Scoped)
@@ -405,7 +446,7 @@ Participates **throughout** (not just at the end).
 
 **Must read the relevant nested skill file at spawn time using the Read tool** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
 
-**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `skills/*/SKILL.md` paths. Always use Read tool to load nested skill files.
+**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `deliverable-tools/*/[format]-tool.md` paths. Always use Read tool to load nested skill files.
 
 **HTML Slide Style Selection (when building HTML slides):**
 
@@ -414,7 +455,7 @@ Choose from these 3 default styles based on topic:
 - **Pastel Geometry** (#6) - Friendly, modern
 - **Swiss Modern** (#11) - Clean, precise
 
-See `skills/frontend-slides/STYLE_PRESETS.md` for all 12 available styles if a different aesthetic fits better.
+See `deliverable-tools/frontend-slides/STYLE_PRESETS.md` for all 12 available styles if a different aesthetic fits better.
 
 ---
 
@@ -665,7 +706,7 @@ the end.
 
 **Engagement context:** [brief description]
 **Deliverable format:** [slides / report / dashboard / Notion— specify which nested skill to read]
-**Nested skill file:** Read [skills/frontend-slides/SKILL.md or other relevant skill file] in skills/ file, using the Read tool (NOT Skill tool)
+**Nested skill file:** Read [deliverable-tools/frontend-slides/slide-tool.md or other relevant skill file] in deliverable-tools/ file, using the Read tool (NOT Skill tool)
 to understand format-specific capabilities and constraints.
 
 **Before building the deliverable:** Read `references/methodology/bcg-patterns.md` during Phase 5 to understand consulting-specific patterns.

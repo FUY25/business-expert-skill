@@ -89,6 +89,18 @@ Longer length = more content covered, more insights delivered. Content density p
 
 ---
 
+## ⚠️ CRITICAL: Large File Writes
+
+- **YAML files:** If >500 lines or write fails, immediately switch to .md format
+- **HTML slides:** If 20+ slides, use chunked writing:
+  1. Write(first section)
+  2. Edit(append second section)
+  3. Edit(append third section)
+- **All agents:** Write in batches, NEVER write large files all at once
+- **If write fails:** Don't retry the same approach - switch to chunked writing or .md format
+
+---
+
 ## Core Methodology
 
 1. **MECE decomposition** — Break every problem into mutually exclusive, collectively exhaustive components.
@@ -98,6 +110,12 @@ Longer length = more content covered, more insights delivered. Content density p
 5. **Find the obvious and non obvious insights** - 
 
 **User engagement principle:** Use `AskUserQuestion` tool whenever asking the user questions with discrete choices throughout the engagement (Phase 1 scope, Phase 2 preliminary findings, Phase 3 working checkpoints, Phase 4 final sign-off, Phase 6 next steps). This creates a selection UI in Claude Code and improves user experience. Only use plain text for open-ended questions.
+
+**Communication Discipline:**
+- This is asynchronous work. Only communicate with user at formal checkpoints.
+- Between checkpoints, work silently. Concise status updates are OK ("Working on Phase 2 research"), but DO NOT show research results or findings until checkpoints.
+- Asking for necessary information is OK anytime.
+- Formal checkpoints: Scope (Phase 1), Preliminary Findings (Phase 2), Final Sign-off (Phase 4), Deliverable (Phase 5), Next Steps (Phase 6)
 
 ---
 
@@ -232,7 +250,7 @@ Participates **throughout** (not just at the end).
 
 **Must read the relevant skill file at spawn time using the Read tool** — not just generic "make it visual" but "this would work as a Chart.js bar chart in the HTML slides format."
 
-**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `skills/*/SKILL.md` paths. Always use Read tool to load nested skill files.
+**IMPORTANT: Use Read tool, not Skill tool, for nested skills.** The Skill tool cannot find nested skills at `deliverable-tools/*/slide-tool.md` (or `pptx-tool.md`, `docx-tool.md`) paths. Always use Read tool to load nested skill files.
 
 ---
 
@@ -293,6 +311,8 @@ Engagement Progress:
 - [ ] Phase 0: Environment Check ⛔ BLOCKING
   - [ ] Verify permissions (file/web access)
   - [ ] Detect Agent Teams capability
+  - [ ] Select model tier based on complexity (Complex: opus, Standard: opus, Simple: sonnet)
+  - [ ] Create engagement-state.yaml as phase map (track progress, checkpoints, findings status)
   - [ ] Spawn team based on --length (Partner always; Fact-Checker/Deliverable Advisor conditionally)
   - [ ] ⚠️ READ references/methodology/agent-teams-guide.md before spawning teammates
 
@@ -509,6 +529,28 @@ Use driver trees when the analysis involves unit economics, revenue models, or c
 - For ideas/inspiration: cast wider (blogs, case studies). Flag as "inspiration, not evidence."
 - **Time relevance:** AI/tech: 1-3 years. Business strategy: 3-5 years. Classic frameworks: timeless.
 
+### Prioritization Standard
+
+Every recommendation must be ranked or sequenced. Never present options as "you could do A, B, or C" without guidance on which to prioritize. Include:
+- Explicit ranking (1st priority, 2nd priority) or sequencing (Phase 1, then Phase 2)
+- Rationale for the prioritization (impact, feasibility, dependencies)
+- Trade-offs between options
+
+### Macro View Requirement
+
+Every engagement must include market context, not just tactical analysis:
+- In issue tree stage: Include "market landscape" or "industry context" branch
+- In final deliverable: Open with macro view (market size, growth trends, key players, structural forces) before diving into specific questions
+- Avoid "analysis in a vacuum" - always ground recommendations in broader market reality
+
+### Abstraction-Detail Balance
+
+Deliverables must balance strategic narrative with technical evidence:
+- Target: 40% abstract/strategic (storylines, implications, frameworks) + 60% technical/evidence (data, calculations, case studies)
+- Too abstract: Feels like a pitch deck, lacks substance
+- Too detailed: Feels like a data dump, loses strategic thread
+- Test: Can an executive understand the "so what"? Can an analyst verify the claims?
+
 ---
 
 ## Iteration Framework
@@ -618,12 +660,12 @@ All work saved to `process/` for traceability and resumability:
 | Format | Template Guide | Nested Skill (read with Read tool) |
 |--------|----------------|-------------------------------------|
 | Markdown (.md) | `references/templates/output-documents.md` | None (built-in) |
-| Word doc (.docx) | `references/templates/output-documents.md` | `skills/docx/SKILL.md` |
+| Word doc (.docx) | `references/templates/output-documents.md` | `deliverable-tools/docx/docx-tool.md` |
 | Notion | `references/templates/output-documents.md` | Notion MCP |
-| HTML slides | `references/templates/output-slides.md` | `skills/frontend-slides/SKILL.md` |
-| PowerPoint (.pptx) | `references/templates/output-slides.md` | `skills/pptx/SKILL.md` |
+| HTML slides | `references/templates/output-slides.md` | `deliverable-tools/frontend-slides/slide-tool.md` |
+| PowerPoint (.pptx) | `references/templates/output-slides.md` | `deliverable-tools/pptx/pptx-tool.md` |
 
-**CRITICAL: Never use the Skill tool for nested skills.** The Skill tool cannot find skills at `skills/*/SKILL.md` paths. Always use the Read tool to load nested skill files.
+**CRITICAL: Never use the Skill tool for nested skills.** The Skill tool cannot find skills at `deliverable-tools/*/[format]-tool.md` paths. Always use the Read tool to load nested skill files.
 
 **Do NOT read output files until Phase 5.** During Phases 0-4, only confirm the chosen format is available.
 

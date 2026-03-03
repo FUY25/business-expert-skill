@@ -165,3 +165,5 @@ Same structural rigor as English decks. Key differences:
 
 10. **Footnotes are mandatory.** Every data slide has source attribution at the bottom. Every
     assumption is noted. Every abbreviation is defined on first use.
+
+11. **Macro context first.** Start with market background and industry context before diving into specific analysis. In the issue tree stage, frame questions within broader market dynamics (market size, growth trends, competitive landscape). In the final deliverable, open with market overview before presenting recommendations. This grounds specific findings in the bigger picture and helps stakeholders understand why the analysis matters. Balance: 40% abstract/story (macro context, narrative arc), 60% technical/evidence (data, analysis, specifics).

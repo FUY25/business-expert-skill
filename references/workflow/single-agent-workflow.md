@@ -41,6 +41,8 @@ Phase 0 → Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 6
 
 ## Phase 0: Environment Check
 
+**READ:** None (this is the first phase)
+
 Same as other workflows, but:
 - Skip Agent Teams detection
 - Skip subagent permission checks
@@ -53,9 +55,19 @@ mkdir -p "$PROJECT_DIR/process"
 cd "$PROJECT_DIR"
 ```
 
+**UPDATE:** After Phase 0 completes, create `process/engagement-state.yaml` with initial state:
+```yaml
+current_phase: "Phase 1"
+last_updated: "<ISO 8601>"
+checkpoints_completed: []
+workflow_type: "single-agent"
+```
+
 ---
 
 ## Phase 1: Scope & Clarification
+
+**READ:** None (Phase 1 is scoping)
 
 Same as other workflows. Use `AskUserQuestion` for format/length selection.
 
@@ -67,9 +79,21 @@ Same as other workflows. Use `AskUserQuestion` for format/length selection.
 
 Adjust expectations: "Since I'm working solo, I'll focus on the most critical questions rather than comprehensive coverage."
 
+**UPDATE:** After Phase 1 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 2"
+last_updated: "<ISO 8601>"
+scope_confirmed: true
+```
+
 ---
 
 ## Phase 2: Preliminary Research
+
+**READ:**
+- `process/engagement-state.yaml` (check current phase)
+- `references/methodology/partner-guide.md` (for self-review criteria)
+- `references/templates/yaml-formats.md` (for output format)
 
 ### Build Issue Tree
 
@@ -133,13 +157,29 @@ self_review:
 
 If you identify issues, address them before proceeding.
 
+**Communication Discipline:** Do NOT show findings to the user until the formal checkpoint below. Complete internal work first.
+
 ### Preliminary Findings Checkpoint
 
 Present findings to user as usual. Wait for feedback before Phase 3.
 
+**UPDATE:** After checkpoint, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 3"
+last_updated: "<ISO 8601>"
+checkpoints_completed: ["preliminary_findings"]
+user_feedback: "<summary of user feedback>"
+self_review_phase2_complete: true
+```
+
 ---
 
 ## Phase 3: Deep Problem Solving
+
+**READ:**
+- `process/engagement-state.yaml` (check user feedback from Phase 2)
+- All `process/preliminary-*.yaml` files (build on Phase 2 findings)
+- `references/methodology/partner-guide.md` (for self-review criteria)
 
 ### Sequential Deep Research
 
@@ -196,15 +236,41 @@ self_review:
 
 Address any issues before proceeding.
 
+**UPDATE:** After Phase 3 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 4"
+last_updated: "<ISO 8601>"
+deep_research_complete: true
+self_review_phase3_complete: true
+```
+
 ---
 
 ## Phase 4: Final Checkpoint
 
+**READ:**
+- `process/engagement-state.yaml` (check Phase 3 completion status)
+- All `process/deep-*.yaml` files (for deliverable structure planning)
+
 Present deliverable structure to user as usual. Get sign-off before building.
+
+**UPDATE:** After user sign-off, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 5"
+last_updated: "<ISO 8601>"
+checkpoints_completed: ["preliminary_findings", "final_checkpoint"]
+deliverable_structure_approved: true
+```
 
 ---
 
 ## Phase 5: Deliverable Creation
+
+**READ:**
+- `process/engagement-state.yaml` (confirm user approval)
+- `references/methodology/bcg-patterns.md` (MUST read before building deliverable)
+- All `process/deep-*.yaml` files (source material for deliverable)
+- `references/workflow/pre-delivery-checklist.md` (before presenting)
 
 ### Read BCG Patterns
 
@@ -213,9 +279,9 @@ Present deliverable structure to user as usual. Get sign-off before building.
 ### Choose Output Format
 
 Based on user's format choice:
-- **Slides (HTML):** Read `skills/frontend-slides/SKILL.md` using Read tool
-- **Slides (PPTX):** Read `skills/pptx/SKILL.md` using Read tool
-- **Document (DOCX):** Read `skills/docx/SKILL.md` using Read tool
+- **Slides (HTML):** Read `deliverable-tools/frontend-slides/slide-tool.md` using Read tool
+- **Slides (PPTX):** Read `deliverable-tools/pptx/pptx-tool.md` using Read tool
+- **Document (DOCX):** Read `deliverable-tools/docx/docx-tool.md` using Read tool
 - **Markdown:** Built-in, no skill needed
 - **Notion:** Use Notion MCP
 
@@ -236,14 +302,34 @@ Based on user's format choice:
 
 Run through `references/workflow/pre-delivery-checklist.md` before presenting.
 
+**UPDATE:** After deliverable is complete, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Phase 6"
+last_updated: "<ISO 8601>"
+deliverable_complete: true
+deliverable_files: ["<list of files created>"]
+```
+
 ---
 
 ## Phase 6: Next Steps & Resumability
+
+**READ:**
+- `process/engagement-state.yaml` (check deliverable completion)
+- All process files (for next steps recommendations)
 
 Same as other workflows:
 - Category A: Researchable now (provide URLs, queries)
 - Category B: Human action required (generate ready-to-use documents)
 - Save `process/engagement-state.yaml` for resumability
+
+**UPDATE:** After Phase 6 completes, update `process/engagement-state.yaml`:
+```yaml
+current_phase: "Complete"
+last_updated: "<ISO 8601>"
+engagement_complete: true
+next_steps_documented: true
+```
 
 ---
 

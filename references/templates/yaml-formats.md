@@ -582,6 +582,30 @@ data_gaps:
   - "Partner B financials — private company"
   - "Real freight quotes for Vietnam→UK route"
 
+issue_tree_updates:
+  - version: 1
+    timestamp: "<ISO 8601>"
+    change: "Initial tree created before Phase 2 research"
+  - version: 2
+    timestamp: "<ISO 8601>"
+    change: "Added branch for positioning-channel coupling after Phase 2 findings"
+
+findings_status:
+  preliminary_complete: true
+  deep_complete: false
+  fact_check_phase2_complete: true
+  fact_check_phase3_complete: false
+  partner_review_phase2: "approved"
+  partner_review_phase3: "pending"
+
+checkpoints_completed:
+  - checkpoint: "phase1_scope"
+    timestamp: "<ISO 8601>"
+    user_feedback: "Approved, proceed with research"
+  - checkpoint: "phase2_preliminary"
+    timestamp: "<ISO 8601>"
+    user_feedback: "Good direction, focus more on cost analysis in Phase 3"
+
 loop_back_count: 1
 loop_back_history:
   - from_phase: 3
