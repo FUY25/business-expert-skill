@@ -108,6 +108,12 @@ Quick summary: You are the PL (Project Lead). Your team includes Partner (qualit
 
 **You are the PL (Project Lead).** You manage phases, checkpoints, user interaction, and narrative direction. You decide how many Business Experts to deploy based on complexity. You synthesize findings into a coherent storyline and present to the user at checkpoints.
 
+**Issue tree ownership:** The PL owns `process/issue-tree.yaml` (or `.md` if yaml fails) as the **single source of truth** for:
+- Key questions to address
+- Hypotheses we're testing
+- Progress state (which hypotheses are validated/refuted/pending)
+- **PL must keep it updated** throughout the engagement as findings come in
+
 **Next-step mindset:** After every finding, every checkpoint, every piece of evidence — ask yourself: "What does this tell us? What should we do next to solve the problem?" Don't just collect information. Use each finding to sharpen the question, redirect experts, or pivot the issue tree. If Expert A discovers the market is saturated, don't wait for all experts to finish — immediately ask: "Does this change our entry strategy? Should Expert B focus on niche segments instead?" Active problem-solving means constantly asking "what next?" based on what you're learning.
 
 **Deliverable specification:** When reviewing expert plans, ensure each expert knows EXACTLY what to produce. Vague requests lead to vague outputs.
@@ -116,6 +122,8 @@ Examples of making deliverables concrete:
 - Not "analyze competitors" → "Identify 5-10 competitors with: market share estimate (% or revenue range with source), pricing strategy (specific price points), distribution channels (ranked by importance), recent strategic moves (last 12 months)"
 - Not "benchmark our metrics" → "Compare our CAC, retention rate, and gross margin against industry median and top quartile (specify which industry reports or databases to use)"
 - Not "segment customers" → "Define 4-6 segments with: demographics (age, income, location), psychographics (values, pain points), size estimate (% of market), revenue potential (ranked), priority ranking (which to target first)"
+
+**Quality bar for PL:** Check creativity (is this analysis fresh?), problem-solving (does this actually solve the user's problem?), and consistency (are findings logically consistent across workstreams?). Review detailed docs before internal meetings and share strategic thoughts during meetings.
 
 **Benchmark framing decisions** (PL decides based on the strategic question):
 - **Median vs top quartile:** Use top quartile if user wants to be best-in-class or assess upside potential. Use median if checking basic viability or "are we in the ballpark?"
@@ -127,11 +135,38 @@ Examples of making deliverables concrete:
 - Be specific about what data, why it matters, and how it changes the analysis
 - Example: "To validate the $50M TAM estimate, I need actual sales data from [industry database]. Without it, I'm relying on model estimates which have ±30% error. Can you access [database name] or share any internal data you have?"
 
-**Team sizing:**
-- `--length 3min`: 2-3 Business Experts
-- `--length 5min`: 3-4 Business Experts (default)
-- `--length 10min`: 4-5 Business Experts
-- `--length 10min+`: 5-6 Business Experts
+**Tiered team structure by --length:**
+
+The team structure and process adapt based on engagement complexity:
+
+**`--length 3min` (Quick Analysis):**
+- Team: PL + 2 Business Experts (subagents, not teammates) + Partner (teammate, on-demand)
+- Process:
+  - Phase 2: Research → PL reviews → User checkpoint
+  - Phase 3: Deep dive → Partner review (spawned on-demand, reads YAMLs) → Deliverable
+  - No meetings, no Fact-Checker, no Deliverable Advisor
+  - PL does fact-checking inline and builds deliverable (respects user's format choice)
+- Savings: 70-80K tokens (60% reduction)
+
+**`--length 5min` (Standard - DEFAULT):**
+- Team: PL + 3 Business Experts (teammates) + Partner (teammate, on-demand) + Deliverable Advisor (teammate, on-demand)
+- Process:
+  - Phase 2: Research → PL sanity check → User checkpoint
+  - Phase 3: Deep dive → MEETING (Partner + Deliverable Advisor spawned, Partner reads YAMLs and gives strategic feedback, Deliverable Advisor gives presentation feedback) → Deliverable
+  - 1 meeting only (Phase 3 final, includes Deliverable Advisor)
+  - PL does fact-checking inline
+  - Deliverable Advisor builds deliverable (respects user's format choice)
+- Savings: 40-50K tokens (30% reduction)
+
+**`--length 10min` and `10min+` (Comprehensive):**
+- Team: Full team (PL + 4-6 Business Experts + Partner + Fact-Checker + Deliverable Advisor, all teammates)
+- Process: Current flow (2 meetings, Partner throughout, Fact-Checker, Deliverable Advisor)
+- Already optimized with Option B changes
+
+**Partner is present for ALL lengths** to provide strategic feedback, but involvement varies:
+- 3min: On-demand review only (no meetings)
+- 5min: Single meeting at Phase 3 (with Deliverable Advisor)
+- 10min+: Full involvement (2 meetings)
 
 ### Business Experts (Problem-Scoped)
 
@@ -157,7 +192,9 @@ Each expert produces an analytical conclusion, not a data dump. Problem scopes d
 
 ### Partner (Evaluator)
 
-The Partner stress-tests all work before it reaches the user. **Partner focuses on strategic review, not data verification** - the Fact-Checker agent handles data integrity checks. Not passive — has authority to message experts directly, send them back, or kill an unproductive angle. The Partner facilitates internal meetings and guides strategic discussions. Their reviews are saved to `process/partner-review-*.yaml` for traceability — visible in the project folder but never in the final deliverable. If the Partner is not satisfied, teammates iterate until the work meets the bar. The user only sees pre-vetted output.
+The Partner stress-tests all work before it reaches the user. **Partner focuses on strategic review, not data verification** - the Fact-Checker agent handles data integrity checks. Not passive — has authority to message experts directly, send them back, or kill an unproductive angle. The Partner gives comments/feedback to each agent during internal meetings, and agents respond and commit to addressing issues. The Partner also conducts formal reviews at phase gates. Their reviews are saved to `process/partner-review-*.yaml` for traceability — visible in the project folder but never in the final deliverable. If the Partner is not satisfied, teammates iterate until the work meets the bar. The user only sees pre-vetted output.
+
+**Partner evaluates:** Creativity, problem-solving effectiveness, consistency, insightfulness (obvious vs non-obvious insights), and whether findings will impress the client.
 
 **Read `references/methodology/partner-guide.md` before any Partner review.**
 
@@ -166,21 +203,21 @@ The Partner stress-tests all work before it reaches the user. **Partner focuses 
 The Fact-Checker verifies data quality and documents meetings. Works in batch mode after all experts complete research and attends all internal meetings.
 
 **Responsibilities:**
-- **Fact-checking**: Verify ALL data points in expert YAML files (not just samples)
+- **Fact-checking (sanity check only)**: Verify ALL data points in expert YAML files (not just samples)
   - Check every key data point has `source_type` (verified/model_estimate/derived)
-  - Verify every `verified` data point has retrievable `source_url`
-  - Spot-check URLs (20-30% in Phase 2, 50%+ in Phase 3)
-  - Cross-check for contradictions across experts
+  - Verify every `verified` data point has `source_url` present
+  - **Do NOT read actual source content** (too expensive) - just check structure
+  - Cross-check for obvious contradictions across experts (e.g., Expert A says €12B, Expert B says €50B for same metric)
   - Flag high `model_estimate` ratios (>10%)
-  - **Flag contradictions, don't resolve them** - PL or Partner messages affected experts to resolve
+  - **Flag contradictions and structural issues, don't resolve them** - PL or Partner messages affected experts to resolve
 - **Meeting notes**: Capture discussions from SendMessage transcripts
   - Attend all internal meetings (2 meetings per engagement)
   - Document key discussions, decisions, action items, contradictions resolved
   - Write structured YAML meeting notes
 
 **Check depth:**
-- **Phase 2 (preliminary)**: Light-to-medium check
-- **Phase 3 (deep)**: Medium-to-heavy check (more thorough since this goes to user)
+- **Phase 2 (preliminary)**: Light sanity check
+- **Phase 3 (deep)**: Medium sanity check
 
 **Outputs:**
 - `process/fact-check-phase2.yaml` - After all experts finish Phase 2
@@ -189,13 +226,14 @@ The Fact-Checker verifies data quality and documents meetings. Works in batch mo
 - `process/meeting-phase3-start.yaml` - Start of Phase 3 meeting notes (optional, only if user gives major change request)
 - `process/meeting-phase3-final.yaml` - Final Phase 3 meeting notes
 
-**Partner reviews Fact-Checker's reports** and decides if flagged issues undermine recommendations.
+**Partner reviews Fact-Checker's reports during meetings** and decides if flagged issues undermine recommendations. PL can manually spot-check critical sources if needed.
 
 ### Deliverable Advisor
 
 Participates **throughout** (not just at the end).
 
 **During research phases (Phase 2-3):**
+- **Attends all internal meetings** to ensure findings can support final deliverable structure
 - Reviews the issue tree from a presentation perspective ("this branch will be hard to visualize")
 - Suggests data formats ("get this as a time series, not a snapshot, so we can show a trend")
 - Flags when findings are too abstract to present ("we need specific numbers, not just 'growing fast'")
@@ -269,7 +307,11 @@ Engagement Progress:
   - [ ] 0.4 Detect Agent Teams / output dependencies
   - [ ] 0.5 Check available data sources (read references/data-sources.md)
   - [ ] 0.6 Suggest agent web access permissions if not configured (see references/setup-guide.md)
-  - [ ] 0.7 Spawn team (Partner, Fact-Checker, Deliverable Advisor) if Agent Teams available
+  - [ ] 0.7 Spawn team based on --length:
+        → 3min: Partner only (on-demand in Phase 3)
+        → 5min: Partner + Deliverable Advisor (on-demand in Phase 3)
+        → 10min+: Partner + Fact-Checker + Deliverable Advisor
+  - [ ] 0.8 Note: Business Experts spawned later in Phase 2 after issue tree is built (lazy spawning)
 - [ ] Phase 1: Scope & Clarification ⚠️ REQUIRED
   - [ ] 1.1 Restate problem, ask clarifying questions
   - [ ] 1.2 Ask output format (mandatory unless --format set)
@@ -284,37 +326,35 @@ Engagement Progress:
   - [ ] 2.1 READ references/agent-teams-guide.md before spawning teammates
   - [ ] 2.2 READ references/templates/yaml-formats.md for YAML structure
   - [ ] 2.3 PL decides what topics to cover (3-5 areas most relevant to engagement)
-  - [ ] 2.4 Spawn Business Experts with mode="plan"
-  - [ ] 2.5 Review and approve expert research plans
-  - [ ] 2.6 Experts execute preliminary research (internally iterative: research → insights → refine)
-  - [ ] 2.7 After all experts complete: Fact-Checker verifies data quality → process/fact-check-phase2.yaml
-  - [ ] 2.8 Build MECE issue tree → process/issue-tree.yaml (internal: hypotheses, user-facing: key questions)
+  - [ ] 2.4 Build MECE issue tree → process/issue-tree.yaml (internal: hypotheses, user-facing: key questions)
+  - [ ] 2.5 Spawn Business Experts based on --length:
+        → 3min: 2 experts (subagents, no team_name)
+        → 5min: 3 experts (teammates with mode="plan")
+        → 10min+: 4-6 experts (teammates with mode="plan")
+  - [ ] 2.6 Review and approve expert research plans (5min+ only)
+  - [ ] 2.7 Experts execute preliminary research (internally iterative: research → insights → refine)
+  - [ ] 2.8 PL does inline fact-checking (3min, 5min) OR Fact-Checker verifies (10min+) → process/fact-check-phase2.yaml
   - [ ] 2.9 Verify all experts wrote YAML files: `ls process/preliminary-*.yaml`
-  - [ ] 2.10 MANDATORY MEETING: Internal meeting before user checkpoint (all experts + PL + Partner + Fact-Checker)
-  - [ ] 2.10.1 Partner facilitates discussion, Fact-Checker takes notes → process/meeting-phase2.yaml
-  - [ ] 2.11 READ references/partner-guide.md before Partner review
-  - [ ] 2.12 Partner formal review → process/partner-review-phase2.yaml (strategic framing focus)
-  - [ ] 2.13 ★ PRELIMINARY FINDINGS CHECKPOINT (mandatory) — present findings + issue tree to user
+  - [ ] 2.10 Meeting (10min+ only): Internal meeting before user checkpoint (all experts + PL + Partner + Fact-Checker + Deliverable Advisor)
+  - [ ] 2.11 ★ PRELIMINARY FINDINGS CHECKPOINT (mandatory) — present findings + issue tree to user
 - [ ] Phase 3: Deep Problem Solving (internally iterative)
-  - [ ] 3.0 Optional meeting: If user gave major change request between Phase 2 and Phase 3
-        → Hold meeting at start of Phase 3 (all experts + PL + Partner + Fact-Checker)
+  - [ ] 3.0 Optional meeting: If user gave major change request between Phase 2 and Phase 3 (10min+ only)
+        → Hold meeting at start of Phase 3 (all experts + PL + Partner + Fact-Checker + Deliverable Advisor)
         → Partner facilitates, Fact-Checker takes notes → process/meeting-phase3-start.yaml
   - [ ] 3.1 Based on user feedback, deploy targeted agents for deep validation
   - [ ] 3.2 Experts execute deep validation (internally iterative: validate → gaps → research deeper)
-  - [ ] 3.3 After all experts complete: Fact-Checker verifies data quality → process/fact-check-phase3.yaml
-  - [ ] 3.4 Cross-workstream contradiction check: Fact-Checker flags contradictions, PL/Partner directs experts to resolve
+  - [ ] 3.3 PL does inline fact-checking (3min, 5min) OR Fact-Checker verifies (10min+) → process/fact-check-phase3.yaml
+  - [ ] 3.4 Cross-workstream contradiction check: PL resolves (3min, 5min) OR Fact-Checker flags, PL/Partner directs experts (10min+)
   - [ ] 3.5 Verify all experts wrote YAML files: `ls process/deep-*.yaml`
   - [ ] 3.6 ★ PIVOT CHECK — does this change the issue tree?
         → YES: update issue-tree.yaml, spawn new workstreams, iterate within Phase 3
         → NO: proceed
-  - [ ] 3.7 MANDATORY MEETING: Final synthesis (all experts + PL + Partner + Fact-Checker)
-  - [ ] 3.7.1 Partner facilitates discussion, Fact-Checker takes notes → process/meeting-phase3-final.yaml
+  - [ ] 3.7 Meeting/Review based on --length:
+        → 3min: Partner on-demand review (spawned, reads YAMLs, gives feedback)
+        → 5min: MEETING (Partner + Deliverable Advisor spawned, Partner reads YAMLs and gives strategic feedback, Deliverable Advisor gives presentation feedback)
+        → 10min+: MEETING (all experts + PL + Partner + Fact-Checker + Deliverable Advisor)
   - [ ] 3.8 READ references/partner-guide.md before Partner review
-  - [ ] 3.9 Partner review → process/partner-review-validation.yaml
-        → Focus: Analytical quality - Are conclusions logically supported by evidence? Do recommendations follow from findings?
-        → Note: Fact-Checker verifies data accuracy; Partner checks if the reasoning is sound
-        → Partner can trigger restructure → loop to Phase 2
-  - [ ] 3.10 Working checkpoints (optional) — share findings when meaningful
+  - [ ] 3.9 Working checkpoints (optional) — share findings when meaningful
   - Loop-back count: 0
 - [ ] Phase 4: Final Checkpoint ⚠️ REQUIRED
   - [ ] 4.1 READ references/partner-guide.md before final review
@@ -323,9 +363,14 @@ Engagement Progress:
   - [ ] 4.4 ★ USER SIGN-OFF — must approve before deliverable
 - [ ] Phase 5: Deliverable Creation (iterative review loop)
   - [ ] 5.1 READ references/bcg-patterns.md for structural patterns
-  - [ ] 5.2 Deliverable Advisor reads nested skill file (using Read tool) + bcg-patterns.md
-  - [ ] 5.3 Deliverable Advisor proposes structure → PL approves
-  - [ ] 5.4 Build BOTH formats: slides (if requested) + .md document (always)
+  - [ ] 5.2 Deliverable creation based on --length:
+        → 3min: PL builds deliverable (respects user's format choice)
+        → 5min: Deliverable Advisor builds deliverable (respects user's format choice)
+        → 10min+: Deliverable Advisor reads nested skill file (using Read tool) + bcg-patterns.md
+  - [ ] 5.3 Deliverable Advisor proposes structure → PL approves (5min+ only)
+  - [ ] 5.4 Build format based on user request:
+        → Slides requested: Build BOTH slides + .md document
+        → Markdown only: Build .md document
   - [ ] 5.5 Use contextual file names (e.g., Market_Entry_Strategy_EU_Paint_v1.md)
   - [ ] 5.6 PL reviews → revise (max 3 versions)
   - [ ] 5.7 READ references/pre-delivery-checklist.md before presenting

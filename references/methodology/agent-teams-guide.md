@@ -104,20 +104,9 @@ TeamCreate(
 
 **Do this FIRST, before spawning any teammates.**
 
-### 2. Create Tasks
+### 2. Spawn Core Team (Phase 0)
 
-```python
-TaskCreate(subject="Partner review", description="Quality gate", activeForm="Reviewing findings")
-TaskCreate(subject="Fact-checking and meeting notes", description="Data verification and documentation", activeForm="Verifying data quality")
-TaskCreate(subject="<problem scope A>", description="...", activeForm="Analyzing <A>")
-TaskCreate(subject="<problem scope B>", description="...", activeForm="Analyzing <B>")
-TaskCreate(subject="<problem scope C>", description="...", activeForm="Analyzing <C>")
-TaskCreate(subject="Deliverable advisory", description="Format guidance", activeForm="Advising")
-```
-
-### 3. Spawn Teammates
-
-**⚠️ EVERY CALL MUST INCLUDE `team_name` AND `name`**
+**Lazy spawning:** Spawn Partner, Fact-Checker, and Deliverable Advisor in Phase 0. Business Experts are spawned later in Phase 2 after the issue tree is built.
 
 ```python
 # Partner — no plan approval needed (reviewer, not researcher)
@@ -138,28 +127,7 @@ Agent(
     model="opus"
 )
 
-# Business Experts — USE mode="plan" for plan approval
-Agent(
-    prompt="<problem scope prompt>",
-    subagent_type="general-purpose",
-    team_name="<project-slug>-strategy",   # ← REQUIRED
-    name="expert-a",                         # ← REQUIRED
-    model="opus",
-    mode="plan"                              # ← REQUIRES PLAN APPROVAL
-)
-
-Agent(
-    prompt="<problem scope prompt>",
-    subagent_type="general-purpose",
-    team_name="<project-slug>-strategy",   # ← REQUIRED
-    name="expert-b",                         # ← REQUIRED
-    model="opus",
-    mode="plan"                              # ← REQUIRES PLAN APPROVAL
-)
-
-# Add more experts as needed (expert-c, expert-d, etc.)
-
-# Deliverable Advisor — no plan approval (advisory role)
+# Deliverable Advisor — no plan approval needed (advisory role)
 Agent(
     prompt="<Deliverable Advisor prompt>",
     subagent_type="general-purpose",
@@ -169,20 +137,38 @@ Agent(
 )
 ```
 
-**Plan approval for Business Experts:** Business Experts must submit a research plan before starting work. This ensures they stick to the main problem, use hypothesis-driven approaches, and don't step on each other's toes.
+### 3. Build Issue Tree (Phase 2)
 
-### 4. Assign Tasks
+Before spawning Business Experts, build the issue tree with 3-5 key questions. Each branch becomes a workstream.
+
+### 4. Spawn Business Experts (Phase 2, After Issue Tree)
+
+**Lazy spawning:** Spawn Business Experts only after you know what questions to answer. Each expert owns one branch of the issue tree.
 
 ```python
-TaskUpdate(taskId="1", owner="partner")
-TaskUpdate(taskId="2", owner="fact-checker")
-TaskUpdate(taskId="3", owner="expert-a")
-TaskUpdate(taskId="4", owner="expert-b")
-TaskUpdate(taskId="5", owner="expert-c")
-TaskUpdate(taskId="6", owner="deliverable-advisor")
+# Business Experts — USE mode="plan" for plan approval
+Agent(
+    prompt="<problem scope prompt for branch 1>",
+    subagent_type="general-purpose",
+    team_name="<project-slug>-strategy",   # ← REQUIRED
+    name="expert-a",                         # ← REQUIRED
+    model="opus",
+    mode="plan"                              # ← REQUIRES PLAN APPROVAL
+)
+
+Agent(
+    prompt="<problem scope prompt for branch 2>",
+    subagent_type="general-purpose",
+    team_name="<project-slug>-strategy",   # ← REQUIRED
+    name="expert-b",                         # ← REQUIRED
+    model="opus",
+    mode="plan"                              # ← REQUIRES PLAN APPROVAL
+)
+
+# Add more experts as needed based on issue tree branches
 ```
 
-### 5. Review and Approve Expert Plans
+This saves 40-50K tokens by avoiding premature agent creation.
 
 Experts with `mode="plan"` submit plans via ExitPlanMode. PL receives `plan_approval_request` messages.
 
@@ -347,22 +333,21 @@ The Partner stress-tests all work before it reaches the user. **Partner focuses 
 The Fact-Checker verifies data quality and documents meetings. Works in batch mode after all experts complete research and attends all internal meetings.
 
 **Responsibilities:**
-- **Fact-checking**: Verify ALL data points in expert YAML files (not just samples)
+- **Fact-checking (sanity check only)**: Verify ALL data points in expert YAML files (not just samples)
   - Check every key data point has `source_type` (verified/model_estimate/derived)
-  - Verify every `verified` data point has retrievable `source_url`
-  - Spot-check URLs (20-30% in Phase 2, 50%+ in Phase 3)
-  - Cross-check for contradictions across experts
+  - Verify every `verified` data point has `source_url` present
+  - **Do NOT read actual source content** (too expensive) - just check structure
+  - Cross-check for obvious contradictions across experts (e.g., Expert A says €12B, Expert B says €50B for same metric)
   - Flag high `model_estimate` ratios (>10%)
-  - **Flag contradictions, don't resolve them** - PL or Partner messages affected experts to resolve
-  - **Important:** Experts should understand that facts must be real, traceable, and include URLs for later deliverable use.
+  - **Flag contradictions and structural issues, don't resolve them** - PL or Partner messages affected experts to resolve
 - **Meeting notes**: Capture discussions from SendMessage transcripts
   - Attend all internal meetings (2 meetings per engagement)
   - Document key discussions, decisions, action items, contradictions resolved
   - Write structured YAML meeting notes (doesn't need to be polished)
 
 **Check depth:**
-- **Phase 2 (preliminary)**: Light-to-medium check
-- **Phase 3 (deep)**: Medium-to-heavy check (more thorough since this goes to user)
+- **Phase 2 (preliminary)**: Light sanity check (structure verification, flag obvious contradictions)
+- **Phase 3 (deep)**: Medium sanity check (more thorough structure verification, flag contradictions)
 
 **Outputs:**
 - `process/fact-check-phase2.yaml` - After all experts finish Phase 2
@@ -371,7 +356,7 @@ The Fact-Checker verifies data quality and documents meetings. Works in batch mo
 - `process/meeting-phase3-start.yaml` - Start of Phase 3 meeting notes (optional, only if user gives major change request)
 - `process/meeting-phase3-final.yaml` - Final Phase 3 meeting notes
 
-**Partner reviews Fact-Checker's reports** and decides if flagged issues undermine recommendations.
+**Partner reviews Fact-Checker's reports during meetings** and decides if flagged issues undermine recommendations. PL can manually spot-check critical sources if needed.
 
 ### Deliverable Advisor
 
@@ -414,6 +399,16 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
+**Resilience: If web access fails, try bash alternatives:**
+- If WebFetch fails → try `curl -s <url> | head -c 50000` via Bash
+- If both fail → use search MCPs (Brave Search, etc.)
+- If all fail → use model knowledge but label as `model_estimate`
+
+**Resilience: If YAML write fails, use .md instead:**
+- If writing to `process/*.yaml` fails → write to `process/*.md` instead
+- Markdown format is acceptable for all process files
+- Keep the same structured format, just use markdown syntax instead of YAML
+
 **Pre-fetch pattern (if user won't change settings):**
 1. Lead fetches URLs via curl/WebFetch
 2. Pass content into agent prompts
@@ -427,7 +422,7 @@ curl -s "https://old.reddit.com/r/HomeImprovement/search.json?q=eco+paint&sort=r
 # Agent prompt includes the pre-fetched content:
 # "Analyze the following pre-fetched consumer feedback data to answer [question]:
 # [content from reddit-data.txt]
-# Write findings to process/expert-X.yaml"
+# Write findings to process/expert-X.yaml (or .md if yaml fails)"
 ```
 
 **Never accept "model knowledge only"** when Lead has web access. Re-dispatch with pre-fetched data or complete the scope directly.
@@ -566,26 +561,26 @@ You are the Fact-Checker. You verify data quality and document meetings.
 After all Business Experts write their YAML files, you verify ALL data points in batch:
 
 1. Read all experts' YAML files (preliminary-*.yaml or deep-*.yaml)
-2. Check EVERY key data point across all workstreams:
+2. **Sanity check EVERY key data point** across all workstreams:
    - Has `source_type` (verified/model_estimate/derived)?
-   - If `verified`, has retrievable `source_url`?
-   - Spot-check URLs (20-30% in Phase 2, 50%+ in Phase 3)
-   - Cross-check for contradictions across experts' findings
+   - If `verified`, has `source_url` present?
+   - **Do NOT read actual source content** (too expensive) - just check structure
+   - Cross-check for obvious contradictions across experts' findings (e.g., Expert A says €12B, Expert B says €50B for same metric)
 3. Calculate `model_estimate` ratio per expert - flag if >10%
 4. Write fact-check report to process/fact-check-phase2.yaml or process/fact-check-phase3.yaml
 
 **Check depth:**
-- **Phase 2 (preliminary)**: Light-to-medium check
+- **Phase 2 (preliminary)**: Light sanity check
   - Verify structure (source_type exists, URLs present)
-  - Spot-check 20-30% of key URLs
-  - Flag obvious issues
-- **Phase 3 (deep)**: Medium-to-heavy check
+  - Flag obvious contradictions
+  - No source reading
+- **Phase 3 (deep)**: Medium sanity check
   - Verify structure
-  - Spot-check 50%+ of URLs
+  - Flag contradictions more thoroughly
   - Cross-check numbers across experts
-  - More thorough since this goes to user
+  - No source reading
 
-**Important:** Experts should understand that facts must be real, traceable, and include URLs for later deliverable use.
+**Important:** Experts should understand that facts must be real, traceable, and include URLs for later deliverable use. PL can manually spot-check critical sources if needed.
 
 **Part 2: Meeting Notes (during internal meetings)**
 

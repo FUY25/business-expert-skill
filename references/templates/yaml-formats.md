@@ -152,7 +152,7 @@ fact_check:
       claimed_value: "€12B"
       claimed_source: "Euromonitor 2025"
       source_url: "https://..."
-      verification: verified|downgraded|upgraded|discrepancy
+      verification: verified|downgraded|upgraded|discrepancy|inaccurate
       actual_value: "€11.8B"
       notes: "Close enough — rounding difference"
     - workstream: "competitive"
@@ -163,17 +163,27 @@ fact_check:
       verification: "upgraded"
       actual_value: "5.8%"
       notes: "Found in Grand View Research 2025 report"
+    - workstream: "gtm"
+      metric: "Amazon DTC growth rate"
+      claimed_value: "25% YoY"
+      claimed_source: "Industry report"
+      source_url: "https://..."
+      verification: "inaccurate"
+      actual_value: "18% YoY"
+      notes: "Source says 18%, not 25%. Expert misread or misremembered."
   summary:
     verified_count: 5
     downgraded_count: 1
     upgraded_count: 1
     discrepancy_count: 1
+    inaccurate_count: 1
     model_estimate_ratio_by_expert:
       market: 0.08
       competitive: 0.12
       gtm: 0.05
     risk_flags:
       - "Shipping cost estimate ($8.50/unit) is model_estimate and critical to margin calculation"
+      - "Amazon growth rate was inaccurate (claimed 25%, actually 18%) - affects channel projections"
   cross_check_findings:
     - issue: "Market size definition inconsistency"
       workstreams: ["market", "gtm"]
@@ -182,6 +192,13 @@ fact_check:
       resolution_owner: "PL or Partner to message affected experts"
 ```
 
+**Verification types:**
+- `verified` — Fact is accurate, source confirms the claim
+- `downgraded` — URL dead or inaccessible, downgraded to model_estimate
+- `upgraded` — Was model_estimate, found real source
+- `discrepancy` — Multiple sources give different values
+- `inaccurate` — Source exists but claimed number doesn't match what source actually says
+
 ### After Deep Research
 
 File: `process/fact-check-phase3.yaml`
@@ -189,7 +206,7 @@ File: `process/fact-check-phase3.yaml`
 Same format as preliminary, but with:
 - `phase: "deep"`
 - `check_depth: "medium-to-heavy"`
-- More thorough URL verification (50%+ spot-checked)
+- More thorough source verification (50%+ spot-checked, actually read for accuracy)
 - More cross-checking across workstreams
 
 ---
@@ -305,7 +322,11 @@ meeting:
 
 ## Issue Tree
 
-File: `process/issue-tree.yaml`
+**The issue tree is the single source of truth** for key questions, hypotheses, and progress state. **PL must keep it updated** throughout the engagement.
+
+**Created at start of Phase 2 (before deploying experts).** Each branch maps to a workstream.
+
+File: `process/issue-tree.yaml` (or `.md` if yaml fails)
 
 ```yaml
 core_question: "Should we launch B2C paint in EU/US?"
@@ -313,7 +334,8 @@ version: 1
 last_updated: "<ISO 8601>"
 branches:
   - id: "market-viability"
-    label: "Market viability"
+    key_question: "Is the market attractive?"
+    workstream: "market"
     hypotheses:
       - id: H1
         statement: "Decorative segment growing >3% CAGR"
@@ -324,7 +346,8 @@ branches:
         status: pending
         evidence_summary: ""
   - id: "cost-advantage"
-    label: "Cost advantage survivability"
+    key_question: "Does our cost advantage survive?"
+    workstream: "cost"
     hypotheses:
       - id: H3
         statement: "Margins positive after tariffs + shipping"
@@ -333,8 +356,16 @@ branches:
 changelog:
   - version: 1
     timestamp: "<ISO 8601>"
-    change: "Initial tree created from Phase 2 research"
+    change: "Initial tree created before Phase 2 research"
 ```
+
+**PL responsibilities:**
+- Create initial issue tree at start of Phase 2 (before deploying experts)
+- Each branch maps to a workstream (expert assignment)
+- Update hypothesis statuses as findings come in (pending → supported/refuted/revised)
+- Add/remove branches when pivot checks reveal changes needed
+- Increment version and log changes in changelog
+- This file is the engagement's strategic backbone
 
 **Living document:** When validation adds, removes, or restructures branches:
 1. Increment version
