@@ -52,14 +52,17 @@ The skill uses structured thinking principles adapted from strategy consulting t
 
 ### The 6-Phase Workflow
 
+**Phase 0: Environment Check**
+Verifies capabilities (web access, file permissions, Agent Teams availability) and spawns core team members (Partner for all workflows; Fact-Checker and Deliverable Advisor for 10min+ only). Recommends optimal settings for analysis quality.
+
 **Phase 1: Scope & Clarification**
 Restates your problem and asks clarifying questions. What decision is this informing? Who's the audience? What constraints matter? This prevents wasted work downstream.
 
 **Phase 2: Landscape Research & Preliminary Findings**
-Initial exploration to establish baseline understanding. Researches the market, competitive landscape, trends, and develops preliminary insights. This is internally iterative — refines as it learns. At the end, you get a checkpoint: "Here's what we've learned so far. Does this framing make sense?"
+Builds issue tree, Partner reviews framing, then deploys Business Experts for initial exploration. Researches the market, competitive landscape, trends, and develops preliminary insights. This is internally iterative — refines as it learns. At the end, you get a checkpoint: "Here's what we've learned so far. Does this framing make sense?"
 
 **Phase 3: Hypothesis Validation & Recommendations**
-Based on your feedback, goes deeper on specific areas. Validates hypotheses with targeted research, develops recommendations, iterates until the analysis is solid. Another checkpoint before building the deliverable.
+Based on your feedback, goes deeper on specific areas. Validates hypotheses with targeted research, develops recommendations, iterates until the analysis is solid. Partner and Deliverable Advisor participate in meetings (5min/10min+) to ensure strategic quality and presentation readiness. Another checkpoint before building the deliverable.
 
 **Phase 4: Final Checkpoint**
 You see the complete storyline with evidence map before anything gets built. This is your last chance to redirect. It's far cheaper to restructure an outline than to redo a 20-slide deck.
@@ -75,7 +78,7 @@ Specific follow-up actions, not vague "do more research." If a next step involve
 **The skill coordinates multiple specialized agents:**
 
 - **Project Lead (PL)** — Manages the engagement, synthesizes findings, owns the narrative arc. This is the main Claude session.
-- **Partner** — Quality gate. Reviews all work before you see it. Can send work back if it doesn't meet the bar. Spawned in Phase 0 to review the issue tree before research begins.
+- **Partner** — Strategic advisor. Reviews issue tree framing and provides strategic feedback throughout the engagement.
 - **Business Experts** — Each owns a problem-scoped question (not a data domain). They research, analyze, and deliver findings.
 - **Deliverable Advisor** — Builds the final output with format-specific expertise (slides, documents, etc.).
 
@@ -212,6 +215,10 @@ business-expert/
 ├── references/
 │   ├── workflow/               # How to execute
 │   │   ├── phases-overview.md  # 6-phase workflow details
+│   │   ├── workflow-3min.md    # Quick analysis workflow
+│   │   ├── workflow-5min.md    # Standard analysis workflow
+│   │   ├── workflow-10min-plus.md  # Comprehensive analysis workflow
+│   │   ├── single-agent-workflow.md  # Fallback for no teams/subagents
 │   │   ├── setup-guide.md      # Installation and configuration
 │   │   ├── data-sources.md     # Available MCPs, APIs, libraries
 │   │   └── pre-delivery-checklist.md  # Quality gates
