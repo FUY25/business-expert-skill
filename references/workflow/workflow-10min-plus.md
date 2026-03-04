@@ -4,6 +4,20 @@ This workflow is for detailed strategic work with 4-7 key questions, requiring r
 
 ---
 
+## Contents
+
+- [Team Structure](#team-structure) - Full team with 4-6 Business Experts, Partner, Fact-Checker, Deliverable Advisor
+- [Phase 0: Environment Check](#phase-0-environment-check--blocking) - Setup, permissions, spawn core team
+- [Phase 1: Scope & Clarification](#phase-1-scope--clarification--required) - Define problem and parameters
+- [Phase 2: Landscape Research & Preliminary Findings](#phase-2-landscape-research--preliminary-findings) - Build issue tree, deploy experts, first checkpoint
+- [Phase 3: Deep Problem Solving](#phase-3-deep-problem-solving) - Validate hypotheses, final meeting, synthesis
+- [Phase 4: Final Checkpoint](#phase-4-final-checkpoint--required) - Present deliverable structure for approval
+- [Phase 5: Deliverable Creation](#phase-5-deliverable-creation) - Build slides and documents
+- [Phase 6: Next Steps & Resumability](#phase-6-next-steps--resumability) - Document next steps and save state
+- [Shutdown](#shutdown) - Gracefully terminate teammates
+
+---
+
 ## Team Structure
 
 **Team:**

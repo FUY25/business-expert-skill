@@ -6,6 +6,25 @@
 
 ---
 
+## Contents
+
+- [⚠️ CRITICAL: Teams vs Subagents](#critical-teams-vs-subagents) - The #1 failure mode
+- [Team Structure](#team-structure) - Team composition by engagement length (3min/5min/10min+)
+- [Detecting Agent Teams Availability](#detecting-agent-teams-availability) - Check if TeamCreate is available
+- [Agent Teams Setup — Tool Call Sequence](#agent-teams-setup--tool-call-sequence) - How to spawn teammates
+- [Problem Delegation, Not Task Delegation](#problem-delegation-not-task-delegation) - How to write expert prompts
+- [File Writing Discipline](#file-writing-discipline) - Large file handling and chunked writing
+- [Meeting Requirements and Communication Discipline](#meeting-requirements-and-communication-discipline) - When to communicate
+- [Team Roles](#team-roles) - Business Experts, Partner, Fact-Checker, Deliverable Advisor
+- [Agent Web Access Setup](#agent-web-access-setup) - Permissions and fallback patterns
+- [Hub-and-Spoke Fallback](#hub-and-spoke-fallback-subagents-available-no-teams) - When Agent Teams unavailable
+- [Single-Agent Fallback](#single-agent-fallback-no-subagents-no-teams) - When no subagents available
+- [Teammate Prompt Templates](#teammate-prompt-templates) - Ready-to-use prompts for each role
+- [Common Mistakes](#common-mistakes) - Troubleshooting table
+- [Coordination Rules](#coordination-rules) - Team coordination principles
+
+---
+
 ## ⚠️ CRITICAL: Teams vs Subagents
 
 **This is the #1 failure mode of this skill.** Read this section carefully.

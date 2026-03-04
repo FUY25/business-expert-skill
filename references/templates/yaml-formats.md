@@ -9,6 +9,19 @@ All agents must write structured YAML files (or .md files if YAML fails) to `pro
 
 ---
 
+## Contents
+
+- [YAML Writing Tips & Troubleshooting](#yaml-writing-tips--troubleshooting) - Common errors, validation, fallback patterns
+- [Workstream Findings (Business Experts)](#workstream-findings-business-experts) - Preliminary and deep research formats
+- [Fact-Check Results (Fact-Checker Agent)](#fact-check-results-fact-checker-agent) - Data verification format
+- [Meeting Notes (Fact-Checker Agent)](#meeting-notes-fact-checker-agent) - Phase 2 and Phase 3 meeting documentation
+- [Issue Tree](#issue-tree) - Strategic question tracking and hypothesis validation
+- [Partner Review](#partner-review) - Quality gate assessment format
+- [Engagement State (Resumability)](#engagement-state-resumability) - Session state tracking for resume capability
+- [Next Steps Proposal](#next-steps-proposal) - Post-engagement action items
+
+---
+
 ## YAML Writing Tips & Troubleshooting
 
 ### Common YAML Syntax Errors
