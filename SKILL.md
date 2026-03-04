@@ -1,26 +1,21 @@
 ---
-name: business-expert
+name: analyzing-business-strategy
 argument-hint: "[topic] [--format md|slides|pptx|docx|notion] [--length 3min|5min|10min|10min+] [--level executive|analyst|technical] [--depth quick|standard|deep] [--sources strict|balanced|broad] [--resume|--new] [--lang en|zh]"
 description: >
-  MBB-style business strategy consultant. Use this skill whenever the user asks about business strategy,
-  market entry, pricing, M&A, growth strategy, competitive analysis, market research, business plans,
-  operational optimization, supply chain, org design, cost reduction, go-to-market, unit economics,
-  industry analysis, ROI analysis, market opportunity, revenue model, cost structure, value chain,
-  SWOT, Porter's five forces, break-even analysis, customer segmentation, channel strategy,
-  partnership evaluation, investment thesis, profitability, margin analysis, benchmarking,
-  industry trends, disruption risk, scale strategy, pivot strategy, product-market fit,
-  or any business problem that requires structured thinking and data-driven recommendations.
-  Trigger on phrases like "analyze this market", "should we enter", "business plan for",
-  "competitive landscape", "how to grow", "pricing strategy", "what's the TAM", "market sizing",
-  "due diligence", "is this a good investment", "how big is this market", "who are the competitors",
-  "what's our moat", "should we build or buy", "how to reduce costs", "where should we expand",
-  "what's the unit economics", "帮我分析", "市场调研", "竞争分析", "商业计划", "定价策略",
-  "进入策略", "行业分析", "增长策略", or any request that involves making strategic business decisions.
-  Do NOT trigger on: business emails, scheduling, HR admin tasks, general office productivity,
-  technical infrastructure decisions (e.g., database selection, cloud cost comparison, API architecture),
-  engineering cost calculations, or simple financial math that doesn't involve strategic business decisions.
-  The key distinction: if the user is comparing technical tools/systems rather than evaluating a market,
-  business model, or strategic direction, this skill should not trigger.
+  Analyzes business strategy, markets, and competitive dynamics with structured thinking and evidence-driven insights.
+  Acts as your strategic partner to help you make informed business decisions through rigorous research and analysis.
+  Use when working on business strategy, market entry, pricing, M&A, growth strategy, competitive analysis,
+  market research, business plans, operational optimization, go-to-market, unit economics, industry analysis,
+  ROI analysis, market opportunity, revenue models, cost structure, SWOT, Porter's five forces, customer segmentation,
+  channel strategy, investment thesis, profitability, benchmarking, industry trends, disruption risk,
+  or product-market fit. Trigger on phrases like "analyze this market", "should we enter",
+  "business plan for", "competitive landscape", "how to grow", "pricing strategy", "what's the TAM",
+  "market sizing", "due diligence", "is this a good investment", "who are the competitors",
+  "what's our moat", "should we build or buy", "where should we expand", "帮我分析", "市场调研",
+  "竞争分析", "商业计划", "定价策略", "进���策略", "行业分析", "增长策略".
+  Do NOT trigger on: business emails, scheduling, HR admin, office productivity, technical infrastructure
+  decisions (database selection, cloud cost comparison, API architecture), engineering cost calculations,
+  or simple financial math without strategic business context.
 ---
 
 # Business Expert
